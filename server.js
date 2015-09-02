@@ -1,5 +1,7 @@
 var express = require('express');
 var path = require('path');
+var favicon = require('serve-favicon');
+
 var httpProxy, proxy, bundle;
 
 var app = express();
@@ -7,6 +9,8 @@ var app = express();
 var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? 8080 : 3001;
 var publicPath = path.resolve(__dirname, 'public');
+
+app.use(favicon(__dirname + '/public/favicon.ico'));
 
 app.use(express.static(publicPath));
 

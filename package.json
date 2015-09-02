@@ -12,6 +12,7 @@
     "immutable": "^3.7.4",
     "jquery": "^2.1.4",
     "react": "^0.13.3",
+    "serve-favicon": "^2.3.0",
     "style-loader": "^0.12.3",
     "webpack": "^1.11.0"
   },
