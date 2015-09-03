@@ -1,11 +1,11 @@
+'use strict';
+
 var Webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var webpackConfig = require('./../webpack.config.js');
 var path = require('path');
 var fs = require('fs');
 var mainPath = path.resolve(__dirname, '..', 'app', 'main.js');
-
-console.log(mainPath);
 
 module.exports = function () {
 

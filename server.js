@@ -1,3 +1,5 @@
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -19,9 +21,12 @@ var password = process.env.ALICE_DB_PASSWORD;
 var db_url = process.env.ALICE_DB_URL;
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(models);
 app.use(express.static(publicPath));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride());
 
+app.use(models);
 
 mongoose.connect(format('mongodb://%s:%s@%s', login, password, db_url));
 

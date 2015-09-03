@@ -1,7 +1,7 @@
 'use strict';
 
 var fs = require('fs');
-var util = require('util');
+var format = require('util').format;
 var path = require('path');
 var express = require('express');
 var router = express.Router();
@@ -45,7 +45,7 @@ function loadModels() {
 			});
 			model = mongoose.model(basename, schema);
 			if (global[basename]) {
-				console.warn(util.format('The %s global variable name already exists, it has been smashed, you are exposed to serious undefined behaviour issues!'));
+				console.warn(format('The %s global variable name already exists, it has been smashed, you are exposed to serious undefined behaviour issues!', basename));
 			}
 			global[basename] = model;
 
