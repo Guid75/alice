@@ -3,11 +3,13 @@
 import React from 'react';
 import User from './user.jsx';
 
-export default class Hello extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { users: [] };
-    }
+export default React.createClass({
+    getInitialState() {
+        return {
+            users: [],
+            filter: ''
+        };
+    },
     componentDidMount() {
         $.ajax({
             method: 'GET',
@@ -17,15 +19,20 @@ export default class Hello extends React.Component {
                 users: data
             });
         });
-    }
+    },
+    handleFilterChange(event) {
+        this.setState({filter: event.target.value});
+    },
+    userContains(user, c) {
+        return user.firstName.toUpperCase().indexOf(c.toUpperCase()) >= 0 || user.lastName.toUpperCase().indexOf(c.toUpperCase()) >= 0;
+    },
     render() {
         return (
             <div>
                 <h1>Welcome to the ALICE workshops!</h1>
-                <input type='text'/>
-
-                {this.state.users.map(user => <User user={user}/>)}
+                <input type='text' onChange={this.handleFilterChange}/>
+                {this.state.users.filter(user => this.userContains(user, this.state.filter)).map(user => <User user={user}/>)}
             </div>
         );
     }
-}
+});
