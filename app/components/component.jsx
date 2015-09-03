@@ -11,7 +11,7 @@ export default class Hello extends React.Component {
     componentDidMount() {
         $.ajax({
             method: 'GET',
-            url: 'toto'
+            url: 'api/v1/students'
         }).then(data => {
             this.setState({
                 users: data

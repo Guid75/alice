@@ -1,6 +1,10 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var models = require('./server/models');
+var format = require('util').format;
 
 var httpProxy, proxy, bundle;
 
@@ -10,9 +14,16 @@ var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? 8080 : 3001;
 var publicPath = path.resolve(__dirname, 'public');
 
-app.use(favicon(__dirname + '/public/favicon.ico'));
+var login = process.env.ALICE_DB_LOGIN;
+var password = process.env.ALICE_DB_PASSWORD;
+var db_url = process.env.ALICE_DB_URL;
 
+app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(models);
 app.use(express.static(publicPath));
+
+
+mongoose.connect(format('mongodb://%s:%s@%s', login, password, db_url));
 
 // We only want to run the workflow when not in production
 if (!isProduction) {
@@ -40,10 +51,6 @@ if (!isProduction) {
     console.log('Could not connect to proxy, please try again...');
   });
 }
-
-app.get('/toto', function (req, res) {
-    res.send([ { firstName: 'Albert', lastName: 'Einstein'}, { firstName: 'Isaac', lastName: 'Newton' }])
-});
 
 app.listen(process.env.PORT || port, function () {
   console.log('Server running on port ' + port);
