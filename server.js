@@ -19,6 +19,8 @@ var publicPath = path.resolve(__dirname, 'public');
 var login = process.env.ALICE_DB_LOGIN;
 var password = process.env.ALICE_DB_PASSWORD;
 var db_url = process.env.ALICE_DB_URL;
+var db_noauth = process.env.ALICE_DB_NOAUTH;
+var complete_url; // with authentication
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(express.static(publicPath));
@@ -28,7 +30,17 @@ app.use(methodOverride());
 
 app.use(models);
 
-mongoose.connect(format('mongodb://%s:%s@%s', login, password, db_url));
+if (db_noauth) {
+    complete_url = format('mongodb://@%s', db_url);
+} else {
+    complete_url = format('mongodb://%s:%s@%s', login, password, db_url);
+}
+
+mongoose.connect(format(complete_url), function (err) {
+    if (err) {
+        console.error(err);
+    }
+});
 
 // We only want to run the workflow when not in production
 if (!isProduction) {
