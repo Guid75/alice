@@ -2,6 +2,7 @@
 
 import React from 'react';
 import User from './user.jsx';
+import { fetchStudents } from '../actions';
 
 export default React.createClass({
     getInitialState() {
@@ -11,14 +12,15 @@ export default React.createClass({
         };
     },
     componentDidMount() {
-        $.ajax({
-            method: 'GET',
-            url: 'api/v1/students'
-        }).then(data => {
-            this.setState({
-                users: data
-            });
-        });
+
+        // $.ajax({
+        //     method: 'GET',
+        //     url: 'api/v1/students'
+        // }).then(data => {
+        //     this.setState({
+        //         users: data
+        //     });
+        // });
     },
     handleFilterChange(event) {
         this.setState({filter: event.target.value});

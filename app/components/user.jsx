@@ -8,7 +8,7 @@ export default class User extends React.Component {
     }
     render() {
         return (
-            <p>{this.props.user.firstName} <b>{this.props.user.lastName.toUpperCase()}</b></p>
+            <p>{this.props.user.get('firstName')} <b>{this.props.user.get('lastName').toUpperCase()}</b></p>
         );
     }
 }
