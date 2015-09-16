@@ -4,6 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import User from '../components/user.jsx';
 import { fetchStudents, filterStudents, addStudent, removeStudent } from '../actions';
+import { List, Map, fromJS } from 'immutable';
 
 var App = React.createClass({
     componentDidMount() {
@@ -40,9 +41,9 @@ var App = React.createClass({
 
 function mapStateToProps(state) {
   return {
-      students: state.students.get('items'),
-      filter: state.students.get('filter'),
-      isFetching: state.students.get('isFetching')
+      students: state.getIn(['students', 'items'], List()),
+      filter: state.getIn(['students', 'filter'], ''),
+      isFetching: state.getIn(['students', 'isFetching'], false)
   };
 }
 

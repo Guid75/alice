@@ -41,8 +41,17 @@ function students(state = fromJS({
     }
 }
 
-const rootReducer = combineReducers({
-  students
-});
-
-export default rootReducer;
+export default function reducer(state = Map(), action) {
+    switch (action.type) {
+        case REQUEST_STUDENTS:
+        case RECEIVE_STUDENTS:
+        case FILTER_STUDENTS:
+        case ADD_STUDENT_REQUEST:
+        case ADD_STUDENT_RESPONSE:
+        case REMOVE_STUDENT_RESPONSE:
+        return state.update(
+            'students', studentsState => students(studentsState, action));
+        default:
+        return state;
+    }
+}
