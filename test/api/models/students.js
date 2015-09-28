@@ -4,8 +4,13 @@ var models = require('../../../server/models');
 var request = require('supertest-as-promised');
 var mongoose = require('mongoose');
 var exec = require('child_process').exec;
+var bodyParser = require('body-parser');
 
 var app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
 app.use(models);
 
 mongoose.connect('mongodb://localhost/alice-api-test', function (err) {
@@ -24,14 +29,25 @@ mongoose.connect('mongodb://localhost/alice-api-test', function (err) {
     });
 });
 
+// the following command is used to drop a database 'mongo <dbname> --eval "db.dropDatabase()"''
+
 describe('Students', function () {
     it('get all students', function () {
         return request(app)
         .get('/api/v1/students')
         .expect(200)
         .then(function (res) {
-            expect(res.body.length).to.equal(2);
-            console.log(res.body);
+        });
+    });
+    it('should add a student', function () {
+        return request(app)
+        .post('/api/v1/students')
+        .set('Content-Type', 'application/json')
+        .send({firstName: 'Donald', lastName: 'Duck'})
+        .expect(201)
+        .then(function (res) {
+            expect(res.body.firstName).to.equal('Donald');
+            expect(res.body.lastName).to.equal('Duck');
         });
     });
 });

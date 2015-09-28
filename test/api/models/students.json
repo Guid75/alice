@@ -1,8 +1,12 @@
 [{
-    "firstName": "Guillaume",
-    "lastName": "Denry"
+    "firstName": "Albert",
+    "lastName": "Einstein"
 },
 {
-    "firstName": "Cécile",
-    "lastName": "Lesgoirres"
+    "firstName": "Thomas",
+    "lastName": "Edison"
+},
+{
+    "firstName": "Isaac",
+    "lastName": "Newton"
 }]
