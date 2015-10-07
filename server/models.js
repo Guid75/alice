@@ -40,9 +40,6 @@ function loadModels() {
 				delete ret.__v;
 			};
 
-			schema.post('save', function (doc) {
-				console.log('%s has been saved', doc._id);
-			});
 			model = mongoose.model(basename, schema);
 			if (global[basename]) {
 				console.warn(format('The %s global variable name already exists, it has been smashed, you are exposed to serious undefined behaviour issues!', basename));

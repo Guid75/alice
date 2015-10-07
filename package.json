@@ -40,7 +40,7 @@
     "start": "node server",
     "postinstall": "node deploy",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:api": "mocha --recursive test/api"
+    "test:api": "mocha --reporter spec --recursive test/api"
   },
   "author": "Guillaume Denry <guillaume.denry@gmail.com>",
   "license": "GPLv3"
