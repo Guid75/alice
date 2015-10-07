@@ -2,11 +2,11 @@
 
 module.exports = {
 	schema: {
-		firstName: {
-			type: String
+		firstDate: {
+			type: Date
 		},
-		lastName: {
-			type: String
+		lastDate: {
+			type: Date
 		}
 	},
 	options: {
