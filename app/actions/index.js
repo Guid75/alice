@@ -29,6 +29,7 @@ export function fetchStudents() {
             if (err) {
                 throw err;
             }
+            console.log('emit RECEIVE_STUDENTS!');
             dispatch(receiveStudents(res.body));
         });
     };

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import User from '../components/user.jsx';
 import { fetchStudents, filterStudents, addStudent, removeStudent } from '../actions';
 import { List, Map, fromJS } from 'immutable';
+import { Input, Nav, NavItem } from 'react-bootstrap';
 
 var App = React.createClass({
     componentDidMount() {
@@ -27,10 +28,18 @@ var App = React.createClass({
         this.props.dispatch(removeStudent(id));
     },
     render() {
+        const filterStyle = {
+            width: 400,
+            marginLeft: 4
+        };
         return (
             <div>
                 <h1>Welcome to the ALICE workshops!</h1>
-                Filter: <input type='text' onChange={this.handleFilterChange}/>
+                <Nav bsStyle="tabs" activeKey={1}>
+                    <NavItem eventKey={1} >Students</NavItem>
+                    <NavItem eventKey={2} >Time slots</NavItem>
+                </Nav>
+                <span style={filterStyle}>Filter:</span> <Input type='text' style={filterStyle} onChange={this.handleFilterChange}/>
             {this.props.students.filter(this.filterStudent).map(student => <User user={student} removeHandler={this.removeHandler}/>)}
                 <hr/>
                 <span>First name: <input type='text' ref='firstName'/> Last name: <input type='text' ref='lastName'/> <button onClick={this.createStudent}>Add a new student</button></span>

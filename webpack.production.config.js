@@ -1,6 +1,6 @@
 var Webpack = require('webpack');
 var path = require('path');
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
+var nodeModulesDir = path.resolve(__dirname, 'node_modules');
 var buildPath = path.resolve(__dirname, 'public', 'build');
 var mainPath = path.resolve(__dirname, 'app', 'index.js');
 
@@ -10,18 +10,21 @@ var config = {
   devtool: 'source-map',
   entry: mainPath,
   output: {
-    path: buildPath,
-    filename: 'bundle.js'
+      path: buildPath,
+      filename: 'bundle.js'
   },
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      loader: 'babel',
-      exclude: [nodeModulesPath]
-    },{
-      test: /\.css$/,
-      loader: 'style!css'
-    }]
+      loaders: [{
+          test: /\.jsx?$/,
+          loader: 'babel',
+          exclude: [nodeModulesDir]
+      }, {
+          test: /\.scss$/,
+          loader: "style!css!sass?outputStyle=expanded&includePaths[]=" + nodeModulesDir + "/bootstrap-sass/assets/stylesheets/"
+      }, {
+          test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+          loader: 'url-loader?limit=100000'
+      }]
   }
 };
 

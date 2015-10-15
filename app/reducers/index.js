@@ -41,6 +41,8 @@ function students(state = fromJS({
 }
 
 export default function reducer(state = Map(), action) {
+    console.log('#################');
+    console.log('##', action.type);
     switch (action.type) {
         case REQUEST_STUDENTS:
         case RECEIVE_STUDENTS:

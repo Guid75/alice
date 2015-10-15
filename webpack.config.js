@@ -41,9 +41,14 @@ var config = {
             include: path.join(__dirname, 'app'),
             exclude: nodeModulesDir
         }, {
-            test: /\.css$/,
-            loader: 'style!css'
-        }],
+            test: /\.scss$/,
+            loader: "style!css!sass?outputStyle=expanded&includePaths[]=" + nodeModulesDir + "/bootstrap-sass/assets/stylesheets/"
+        },
+        {
+            test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+            loader: 'url-loader?limit=100000'
+        }
+        ],
         noParse: []
     }
 };
