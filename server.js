@@ -41,6 +41,7 @@ mongoose.connect(format(complete_url), function (err) {
 });
 
 if (!isProduction) {
+    // TODO move all the following instruction of the block to a specific dev file
     var webpack = require('webpack');
     var config = require('./webpack.config');
     var compiler = webpack(config);
