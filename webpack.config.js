@@ -14,9 +14,10 @@ var config = {
     devtool: 'eval',
     entry: {
         app: [
-            'webpack/hot/dev-server',
+            //'webpack/hot/dev-server',
+            'webpack-hot-middleware/client',
             // The script refreshing the browser on none hot updates
-            'webpack-dev-server/client?http://localhost:8080',
+            //'webpack-dev-server/client?http://localhost:8080',
             mainPath
         ]
     },

@@ -8,8 +8,6 @@ var Schema = mongoose.Schema;
 var models = require('./server/models');
 var format = require('util').format;
 
-var httpProxy, proxy, bundle;
-
 var app = express();
 
 var isProduction = process.env.NODE_ENV === 'production';
@@ -42,33 +40,23 @@ mongoose.connect(format(complete_url), function (err) {
     }
 });
 
-// We only want to run the workflow when not in production
 if (!isProduction) {
-    httpProxy = require('http-proxy');
-    proxy = httpProxy.createProxyServer();
+    var webpack = require('webpack');
+    var config = require('./webpack.config');
+    var compiler = webpack(config);
+    app.use(require('webpack-dev-middleware')(compiler, {
+      noInfo: true,
+      publicPath: config.output.publicPath
+    }));
 
-  // We require the bundler inside the if block because
-  // it is only needed in a development environment. Later
-  // you will see why this is a good idea
-  bundle = require('./server/bundle.js');
-  bundle();
-
-  // Any requests to localhost:3000/build is proxied
-  // to webpack-dev-server
-  app.all('/build/*', function (req, res) {
-    proxy.web(req, res, {
-        target: 'http://localhost:8080'
-    });
-  });
-
-  // It is important to catch any errors from the proxy or the
-  // server will crash. An example of this is connecting to the
-  // server when webpack is bundling
-  proxy.on('error', function(e) {
-    console.log('Could not connect to proxy, please try again...');
-  });
+    app.use(require('webpack-hot-middleware')(compiler));
 }
 
-app.listen(process.env.PORT || port, function () {
-  console.log('Server running on port ' + port);
+app.listen(process.env.PORT || port, 'localhost', function(err) {
+  if (err) {
+    console.log(err);
+    return;
+  }
+
+  console.log('Listening at http://localhost:' + (process.env.PORT || port));
 });
