@@ -31,7 +31,6 @@
   },
   "devDependencies": {
     "babel-plugin-react-transform": "^1.1.1",
-    "bootstrap-sass": "^3.3.5",
     "chai": "^3.3.0",
     "eslint": "^1.1.0",
     "eslint-plugin-react": "^3.2.1",

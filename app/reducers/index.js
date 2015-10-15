@@ -1,3 +1,5 @@
+'use strict';
+
 import { List, Map, fromJS } from 'immutable';
 import {
   REQUEST_STUDENTS, RECEIVE_STUDENTS, FILTER_STUDENTS,
@@ -41,8 +43,6 @@ function students(state = fromJS({
 }
 
 export default function reducer(state = Map(), action) {
-    console.log('#################');
-    console.log('##', action.type);
     switch (action.type) {
         case REQUEST_STUDENTS:
         case RECEIVE_STUDENTS:

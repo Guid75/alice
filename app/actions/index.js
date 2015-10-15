@@ -1,3 +1,5 @@
+'use strict';
+
 import request from 'superagent';
 
 export const REQUEST_STUDENTS = 'REQUEST_STUDENTS';
@@ -29,7 +31,6 @@ export function fetchStudents() {
             if (err) {
                 throw err;
             }
-            console.log('emit RECEIVE_STUDENTS!');
             dispatch(receiveStudents(res.body));
         });
     };
