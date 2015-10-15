@@ -9,7 +9,7 @@ export default class User extends React.Component {
     }
     render() {
         return (
-            <p key={this.props.user.get('id')}>{this.props.user.get('firstName')} <b>{this.props.user.get('lastName').toUpperCase()}</b> <Button bsStyle="danger" onClick={this.props.removeHandler.bind(this, this.props.user.get('id'))} ><Glyphicon glyph="remove" /> Remove</Button>
+            <p key={this.props.user.get('id')}>{this.props.user.get('firstName')} <b>{this.props.user.get('lastName').toUpperCase()}</b> <Button bsSize="xsmall" bsStyle="danger" onClick={this.props.removeHandler.bind(this, this.props.user.get('id'))} ><Glyphicon glyph="remove" /> Remove</Button>
             </p>
         );
     }
