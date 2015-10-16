@@ -53,7 +53,7 @@ if (!isProduction) {
     app.use(require('webpack-hot-middleware')(compiler));
 }
 
-app.listen(process.env.PORT || port, 'localhost', function(err) {
+app.listen(process.env.PORT || port, function(err) {
   if (err) {
     console.log(err);
     return;
