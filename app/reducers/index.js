@@ -4,7 +4,8 @@ import { List, Map, fromJS } from 'immutable';
 import {
   REQUEST_STUDENTS, RECEIVE_STUDENTS, FILTER_STUDENTS,
   ADD_STUDENT_REQUEST, ADD_STUDENT_RESPONSE,
-  REMOVE_STUDENT_REQUEST, REMOVE_STUDENT_RESPONSE
+  REMOVE_STUDENT_REQUEST, REMOVE_STUDENT_RESPONSE,
+  SELECT_TAB
 } from '../actions';
 
 function students(state = fromJS({
@@ -52,6 +53,8 @@ export default function reducer(state = Map(), action) {
         case REMOVE_STUDENT_RESPONSE:
         return state.update(
             'students', studentsState => students(studentsState, action));
+        case SELECT_TAB:
+        return state.set('currentTab', action.tab);
         default:
         return state;
     }

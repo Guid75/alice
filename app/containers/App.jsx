@@ -3,9 +3,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import User from '../components/user.jsx';
-import { fetchStudents, filterStudents, addStudent, removeStudent } from '../actions';
+import AppHeader from '../components/AppHeader.jsx';
+import MainTabBar from '../components/MainTabBar.jsx';
+import { fetchStudents, filterStudents, addStudent, removeStudent, selectTab } from '../actions';
 import { List, Map, fromJS } from 'immutable';
-import { Input, Nav, NavItem } from 'react-bootstrap';
+import { Input } from 'react-bootstrap';
 
 var App = React.createClass({
     componentDidMount() {
@@ -27,6 +29,9 @@ var App = React.createClass({
     removeHandler(id) {
         this.props.dispatch(removeStudent(id));
     },
+    handleTabSelect(key) {
+        this.props.dispatch(selectTab(key));
+    },
     render() {
         const filterStyle = {
             width: 400,
@@ -34,11 +39,8 @@ var App = React.createClass({
         };
         return (
             <div>
-                <h1>Welcome to the ALICE workshops!</h1>
-                <Nav bsStyle="tabs" activeKey={1}>
-                    <NavItem eventKey={1} >Students</NavItem>
-                    <NavItem eventKey={2} >Time slots</NavItem>
-                </Nav>
+                <AppHeader />
+                <MainTabBar currentTab={this.props.currentTab} handleTabSelect={this.handleTabSelect}/>
                 <span style={filterStyle}>Filter:</span> <Input type='text' style={filterStyle} onChange={this.handleFilterChange}/>
             {this.props.students.filter(this.filterStudent).map(student => <User user={student} removeHandler={this.removeHandler}/>)}
                 <hr/>
@@ -50,6 +52,7 @@ var App = React.createClass({
 
 function mapStateToProps(state) {
   return {
+      currentTab: state.get('currentTab') || '1',
       students: state.getIn(['students', 'items'], List()),
       filter: state.getIn(['students', 'filter'], ''),
       isFetching: state.getIn(['students', 'isFetching'], false)

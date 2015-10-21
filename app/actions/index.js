@@ -9,6 +9,7 @@ export const ADD_STUDENT_REQUEST = 'ADD_STUDENT_REQUEST';
 export const ADD_STUDENT_RESPONSE = 'ADD_STUDENT_RESPONSE';
 export const REMOVE_STUDENT_REQUEST = 'REMOVE_STUDENT_REQUEST';
 export const REMOVE_STUDENT_RESPONSE = 'REMOVE_STUDENT_RESPONSE';
+export const SELECT_TAB = 'SELECT_TAB';
 
 function requestStudents() {
     return {
@@ -95,4 +96,11 @@ export function removeStudent(id) {
             dispatch(removeStudentResponse(id));
         });
     }
+}
+
+export function selectTab(id) {
+    return {
+        type: SELECT_TAB,
+        tab: id
+    };
 }
