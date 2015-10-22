@@ -5,7 +5,6 @@ var buildPath = path.resolve(__dirname, 'public', 'build');
 var mainPath = path.resolve(__dirname, 'app', 'index.js');
 
 var config = {
-
   // We change to normal source mapping
   devtool: 'source-map',
   entry: mainPath,

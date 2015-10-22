@@ -18,8 +18,8 @@ var App = React.createClass({
     },
     createStudent() {
         this.props.dispatch(addStudent({
-            firstName: React.findDOMNode(this.refs.firstName).value,
-            lastName: React.findDOMNode(this.refs.lastName).value
+            firstName: this.refs.firstName.value,
+            lastName: this.refs.lastName.value
         }));
     },
     filterStudent(student) {
@@ -42,7 +42,7 @@ var App = React.createClass({
                 <AppHeader />
                 <MainTabBar currentTab={this.props.currentTab} handleTabSelect={this.handleTabSelect}/>
                 <span style={filterStyle}>Filter:</span> <Input type='text' style={filterStyle} onChange={this.handleFilterChange}/>
-            {this.props.students.filter(this.filterStudent).map(student => <User user={student} removeHandler={this.removeHandler}/>)}
+            {this.props.students.filter(this.filterStudent).map(student => <User key={student.get('id')} user={student} removeHandler={this.removeHandler}/>)}
                 <hr/>
                 <span>First name: <input type='text' ref='firstName'/> Last name: <input type='text' ref='lastName'/> <button onClick={this.createStudent}>Add a new student</button></span>
             </div>
@@ -52,7 +52,7 @@ var App = React.createClass({
 
 function mapStateToProps(state) {
   return {
-      currentTab: state.get('currentTab') || '1',
+      currentTab: state.get('currentTab') || 1,
       students: state.getIn(['students', 'items'], List()),
       filter: state.getIn(['students', 'filter'], ''),
       isFetching: state.getIn(['students', 'isFetching'], false)

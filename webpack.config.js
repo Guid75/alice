@@ -6,18 +6,15 @@ var nodeModulesDir = path.resolve(__dirname, 'node_modules');
 var buildPath = path.resolve(__dirname, 'public', 'build');
 var mainPath = path.resolve(__dirname, 'app', 'index.js');
 
-var deps = [
-  'react/dist/react.min.js'
-];
-
+// var deps = [
+//     'react/dist/react.min.js'
+// ];
+//
 var config = {
     devtool: 'eval',
     entry: {
         app: [
-            //'webpack/hot/dev-server',
             'webpack-hot-middleware/client',
-            // The script refreshing the browser on none hot updates
-            //'webpack-dev-server/client?http://localhost:8080',
             mainPath
         ]
     },
@@ -32,13 +29,15 @@ var config = {
     ],
     resolve: {
         alias: {
+            'react': path.resolve(nodeModulesDir, 'react/react.js'),
+            'react-dom': path.resolve(nodeModulesDir, 'react/lib/ReactDOM.js'),
             'react/lib': path.resolve(nodeModulesDir, 'react/lib')
         }
     },
     module: {
         loaders: [{
             test: /\.jsx?$/, // A regexp to test the require path. accepts either js or jsx
-            loaders: ['react-hot', 'babel'],
+            loaders: ['babel'],
             include: path.join(__dirname, 'app'),
             exclude: nodeModulesDir
         }, {
@@ -54,10 +53,10 @@ var config = {
     }
 };
 
-deps.forEach(function (dep) {
-  var depPath = path.resolve(nodeModulesDir, dep);
-  config.resolve.alias[dep.split(path.sep)[0]] = depPath;
-  config.module.noParse.push(depPath);
-});
+// deps.forEach(function (dep) {
+//   var depPath = path.resolve(nodeModulesDir, dep);
+//   config.resolve.alias[dep.split(path.sep)[0]] = depPath;
+//   config.module.noParse.push(depPath);
+// });
 
 module.exports = config;
