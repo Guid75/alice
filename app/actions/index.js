@@ -92,7 +92,7 @@ function removeStudentResponse(id) {
 
 export function removeStudent(id) {
     return dispatch => {
-        dispatch(removeStudentRequest(student));
+        dispatch(removeStudentRequest(id));
         request
         .del('/api/v1/students/' + id)
         .end((err, res) => {

@@ -43,7 +43,7 @@ function students(state = fromJS({
     }
 }
 
-export default function reducer(state = Map(), action) {
+export default function reducer(state = Map({ currentTab: 'students' }), action) {
     switch (action.type) {
         case REQUEST_STUDENTS:
         case RECEIVE_STUDENTS:

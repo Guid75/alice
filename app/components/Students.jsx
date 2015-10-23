@@ -11,7 +11,8 @@ export default class Students extends React.Component {
     }
     filterStudent(student) {
         return student.get('firstName').toUpperCase().indexOf(this.props.studentFilter.toUpperCase()) >= 0 ||
-        student.get('lastName').toUpperCase().indexOf(this.props.studentFilter.toUpperCase()) >= 0;
+        student.get('lastName').toUpperCase().indexOf(this.props.studentFilter.toUpperCase()) >= 0 ||
+        (student.get('firstName') + ' ' + student.get('lastName')).toUpperCase().indexOf(this.props.studentFilter.toUpperCase()) >= 0;
     }
     createStudentHandler() {
         this.props.createStudentHandler(this.refs.firstName.value, this.refs.lastName.value);
@@ -23,7 +24,7 @@ export default class Students extends React.Component {
         };
         return (
             <div>
-                <span style={filterStyle}>Filter:</span> <Input type='text' style={filterStyle} onChange={this.props.studentFilterChangeHandler}/>
+                <span style={filterStyle}>Filter:</span> <Input type='text' style={filterStyle} value={this.props.studentFilter} onChange={this.props.studentFilterChangeHandler}/>
                 {this.props.isFetching ? <span>Fetching students...</span> : this.props.students.filter(this.filterStudent.bind(this)).map(student => <User key={student.get('id')} user={student} removeHandler={this.props.removeStudentHandler}/>)
             }
                 <hr/>

@@ -28,18 +28,32 @@ var App = React.createClass({
         this.props.dispatch(selectTab(key));
     },
     render() {
+        var mainContain;
+        switch (this.props.currentTab) {
+            case 'students':
+            mainContain = <Students
+                isFetching={this.props.isFetching}
+                students={this.props.students}
+                studentFilter={this.props.filter}
+                studentFilterChangeHandler={this.studentFilterChange}
+                createStudentHandler={this.createStudent}
+                removeStudentHandler={this.removeStudent}
+                />;
+            break;
+            case 'timeslots':
+            mainContain = <div/>;
+            break;
+            default:
+            mainContain = <div>Should not happend</div>;
+            break;
+        }
+
+
         return (
             <div>
                 <AppHeader />
                 <MainTabBar currentTab={this.props.currentTab} handleTabSelect={this.handleTabSelect}/>
-                <Students
-                    isFetching={this.props.isFetching}
-                    students={this.props.students}
-                    studentFilter={this.props.filter}
-                    studentFilterChangeHandler={this.studentFilterChange}
-                    createStudentHandler={this.createStudent}
-                    removeStudentHandler={this.removeStudent}
-                     />
+                {mainContain}
             </div>
         );
     }
