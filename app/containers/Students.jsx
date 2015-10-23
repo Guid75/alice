@@ -36,7 +36,7 @@ class Students extends React.Component {
         };
         return (
             <div>
-                <span style={filterStyle}>Filter:</span> <Input type='text' style={filterStyle} value={this.props.studentFilter} onChange={this.studentFilterChangeHandler.bind(this)}/>
+                <span style={filterStyle}>Filter:</span> <Input type='text' style={filterStyle} value={this.props.filter} onChange={this.studentFilterChangeHandler.bind(this)}/>
                 {this.props.isFetching ?
                     <span>Fetching students...</span> : this.props.students.filter(this.filterStudent.bind(this)).map(student => <Student key={student.get('id')} student={student} removeHandler={this.removeStudentHandler.bind(this)}/>)
             }
