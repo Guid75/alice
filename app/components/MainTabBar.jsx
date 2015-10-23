@@ -1,17 +1,18 @@
 'use strict';
 
 import React from 'react';
-import { Tabs, Tab } from 'react-bootstrap';
+import { Nav, NavItem } from 'react-bootstrap';
 
 export default class User extends React.Component {
     constructor(props) {
         super(props);
     }
     render() {
-        return (<Tabs activeKey={this.props.currentTab} onSelect={this.props.handleTabSelect}>
-                <Tab eventKey={1} title="Students" />
-                <Tab eventKey={2} title="Time slots" />
-            </Tabs>
+        return (
+            <Nav bsStyle="tabs" activeKey={this.props.currentTab} onSelect={this.props.handleTabSelect}>
+                <NavItem eventKey={1}>Students</NavItem>
+                <NavItem eventKey={2}>Time slots</NavItem>
+            </Nav>
         );
     }
 }

@@ -10,6 +10,7 @@ var mainPath = path.resolve(__dirname, 'app', 'index.js');
 //     'react/dist/react.min.js'
 // ];
 //
+var deps = [];
 var config = {
     devtool: 'eval',
     entry: {
@@ -27,13 +28,11 @@ var config = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin()
     ],
-    resolve: {
-        alias: {
-            'react': path.resolve(nodeModulesDir, 'react/react.js'),
-            'react-dom': path.resolve(nodeModulesDir, 'react/lib/ReactDOM.js'),
-            'react/lib': path.resolve(nodeModulesDir, 'react/lib')
-        }
-    },
+    // resolve: {
+    //     alias: {
+    //         'react/lib': path.resolve(nodeModulesDir, 'react/lib')
+    //     }
+    // },
     module: {
         loaders: [{
             test: /\.jsx?$/, // A regexp to test the require path. accepts either js or jsx
@@ -54,9 +53,9 @@ var config = {
 };
 
 // deps.forEach(function (dep) {
-//   var depPath = path.resolve(nodeModulesDir, dep);
-//   config.resolve.alias[dep.split(path.sep)[0]] = depPath;
-//   config.module.noParse.push(depPath);
+//     var depPath = path.resolve(nodeModulesDir, dep);
+//     config.resolve.alias[dep.split(path.sep)[0]] = depPath;
+//     config.module.noParse.push(depPath);
 // });
 
 module.exports = config;
