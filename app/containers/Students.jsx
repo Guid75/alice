@@ -3,7 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Glyphicon } from 'react-bootstrap';
-import User from '../components/User.jsx';
+import Student from '../components/Student.jsx';
 import { Input } from 'react-bootstrap';
 import { fetchStudents, filterStudents, addStudent, removeStudent } from '../actions';
 import { List } from 'immutable';
@@ -38,7 +38,7 @@ class Students extends React.Component {
             <div>
                 <span style={filterStyle}>Filter:</span> <Input type='text' style={filterStyle} value={this.props.studentFilter} onChange={this.studentFilterChangeHandler.bind(this)}/>
                 {this.props.isFetching ?
-                    <span>Fetching students...</span> : this.props.students.filter(this.filterStudent.bind(this)).map(student => <User key={student.get('id')} user={student} removeHandler={this.removeStudentHandler.bind(this)}/>)
+                    <span>Fetching students...</span> : this.props.students.filter(this.filterStudent.bind(this)).map(student => <Student key={student.get('id')} student={student} removeHandler={this.removeStudentHandler.bind(this)}/>)
             }
                 <hr/>
                 <span>First name: <input type='text' ref='firstName'/> Last name: <input type='text' ref='lastName'/> <button onClick={this.createStudentHandler.bind(this)}>Add a new student</button></span>
