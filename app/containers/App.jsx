@@ -3,6 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Students from './Students.jsx';
+import Timeslots from './Timeslots.jsx';
 import AppHeader from '../components/AppHeader.jsx';
 import MainTabBar from '../components/MainTabBar.jsx';
 import { fetchStudents, selectTab } from '../actions';
@@ -22,7 +23,7 @@ var App = React.createClass({
             mainContain = <Students />;
             break;
             case 'timeslots':
-            mainContain = <div/>;
+            mainContain = <Timeslots />;
             break;
             default:
             mainContain = <div>Should not happend</div>;
