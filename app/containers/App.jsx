@@ -2,49 +2,44 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import User from '../components/user.jsx';
+import Students from '../components/Students.jsx';
 import AppHeader from '../components/AppHeader.jsx';
 import MainTabBar from '../components/MainTabBar.jsx';
 import { fetchStudents, filterStudents, addStudent, removeStudent, selectTab } from '../actions';
 import { List, Map, fromJS } from 'immutable';
-import { Input } from 'react-bootstrap';
 
 var App = React.createClass({
     componentDidMount() {
         this.props.dispatch(fetchStudents());
     },
-    handleFilterChange(event) {
+    studentFilterChange(event) {
         this.props.dispatch(filterStudents(event.target.value));
     },
-    createStudent() {
+    createStudent(firstName, lastName) {
         this.props.dispatch(addStudent({
-            firstName: this.refs.firstName.value,
-            lastName: this.refs.lastName.value
+            firstName,
+            lastName
         }));
     },
-    filterStudent(student) {
-        return student.get('firstName').toUpperCase().indexOf(this.props.filter.toUpperCase()) >= 0 ||
-        student.get('lastName').toUpperCase().indexOf(this.props.filter.toUpperCase()) >= 0;
-    },
-    removeHandler(id) {
+    removeStudent(id) {
         this.props.dispatch(removeStudent(id));
     },
     handleTabSelect(key) {
         this.props.dispatch(selectTab(key));
     },
     render() {
-        const filterStyle = {
-            width: 400,
-            marginLeft: 4
-        };
         return (
             <div>
                 <AppHeader />
                 <MainTabBar currentTab={this.props.currentTab} handleTabSelect={this.handleTabSelect}/>
-                <span style={filterStyle}>Filter:</span> <Input type='text' style={filterStyle} onChange={this.handleFilterChange}/>
-            {this.props.students.filter(this.filterStudent).map(student => <User key={student.get('id')} user={student} removeHandler={this.removeHandler}/>)}
-                <hr/>
-                <span>First name: <input type='text' ref='firstName'/> Last name: <input type='text' ref='lastName'/> <button onClick={this.createStudent}>Add a new student</button></span>
+                <Students
+                    isFetching={this.props.isFetching}
+                    students={this.props.students}
+                    studentFilter={this.props.filter}
+                    studentFilterChangeHandler={this.studentFilterChange}
+                    createStudentHandler={this.createStudent}
+                    removeStudentHandler={this.removeStudent}
+                     />
             </div>
         );
     }

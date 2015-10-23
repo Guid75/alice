@@ -26,6 +26,7 @@ function receiveStudents(students) {
 
 export function fetchStudents() {
     return dispatch => {
+        dispatch(requestStudents());
         request
         .get('/api/v1/students')
         .end((err, res) =>  {
@@ -61,6 +62,7 @@ function addStudentResponse(student) {
 
 export function addStudent(student) {
     return dispatch => {
+        dispatch(addStudentRequest(student));
         request
         .post('/api/v1/students')
         .set('Content-Type', 'application/json')
@@ -90,6 +92,7 @@ function removeStudentResponse(id) {
 
 export function removeStudent(id) {
     return dispatch => {
+        dispatch(removeStudentRequest(student));
         request
         .del('/api/v1/students/' + id)
         .end((err, res) => {
