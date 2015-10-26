@@ -1,7 +1,6 @@
 'use strict';
 
 import { List, Map, fromJS } from 'immutable';
-import { handleAction } from 'redux-actions';
 import { SELECT_TAB } from '../actions/';
 import {
   REQUEST_STUDENTS, RECEIVE_STUDENTS, FILTER_STUDENTS,
