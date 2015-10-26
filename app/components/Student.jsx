@@ -14,3 +14,8 @@ export default class Student extends React.Component {
         );
     }
 }
+
+Student.propTypes = {
+    student: React.PropTypes.object.isRequired,
+    removeHandler: React.PropTypes.func.isRequired
+};

@@ -1,12 +1,14 @@
 'use strict';
 
 import { List, Map, fromJS } from 'immutable';
+import { handleAction } from 'redux-actions';
+import { SELECT_TAB } from '../actions/';
 import {
   REQUEST_STUDENTS, RECEIVE_STUDENTS, FILTER_STUDENTS,
   ADD_STUDENT_REQUEST, ADD_STUDENT_RESPONSE,
   REMOVE_STUDENT_REQUEST, REMOVE_STUDENT_RESPONSE,
-  SELECT_TAB
-} from '../actions';
+  STUDENT_EDITION_MODAL_SHOW, STUDENT_EDITION_MODAL_CLOSE
+} from '../actions/students';
 import {
     REQUEST_TEACHERS, RECEIVE_TEACHERS, FILTER_TEACHERS,
     ADD_TEACHER_REQUEST, ADD_TEACHER_RESPONSE,
@@ -44,6 +46,10 @@ function students(state = fromJS({
         return state.merge({
             items: items.delete(items.findIndex(item => item.get('id') === action.id))
         });
+        case STUDENT_EDITION_MODAL_SHOW:
+        return state.set('displayEditionModal', true);
+        case STUDENT_EDITION_MODAL_CLOSE:
+        return state.set('displayEditionModal', false);
         default:
         return state;
     }
@@ -96,6 +102,8 @@ export default function reducer(state = Map({ currentTab: 'students' }), action)
         case ADD_STUDENT_REQUEST:
         case ADD_STUDENT_RESPONSE:
         case REMOVE_STUDENT_RESPONSE:
+        case STUDENT_EDITION_MODAL_SHOW:
+        case STUDENT_EDITION_MODAL_CLOSE:
         return state.update(
             'students', studentsState => students(studentsState, action));
         case REQUEST_TEACHERS:

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Button, Glyphicon } from 'react-bootstrap';
 import Student from '../components/Student.jsx';
 import { Input } from 'react-bootstrap';
-import { fetchStudents, filterStudents, addStudent, removeStudent } from '../actions';
+import { fetchStudents, filterStudents, removeStudent, studentEditionModalShow } from '../actions/students';
 import { List } from 'immutable';
 
 class Students extends React.Component {
@@ -15,14 +15,11 @@ class Students extends React.Component {
     studentFilterChangeHandler(event) {
         this.props.dispatch(filterStudents(event.target.value));
     }
-    removeStudentHandler(id) {
+    removeUserHandler(id) {
         this.props.dispatch(removeStudent(id));
     }
-    createStudentHandler() {
-        this.props.dispatch(addStudent({
-            firstName: this.refs.firstName.value,
-            lastName: this.refs.lastName.value
-        }));
+    createUserHandler() {
+        this.props.dispatch(studentEditionModalShow());
     }
     filterStudent(student) {
         return student.get('firstName').toUpperCase().indexOf(this.props.filter.toUpperCase()) >= 0 ||
@@ -36,12 +33,17 @@ class Students extends React.Component {
         };
         return (
             <div>
-                <span style={filterStyle}>Filter:</span> <Input type='text' style={filterStyle} value={this.props.filter} onChange={this.studentFilterChangeHandler.bind(this)}/>
-                {this.props.isFetching ?
-                    <span>Fetching students...</span> : this.props.students.filter(this.filterStudent.bind(this)).map(student => <Student key={student.get('id')} student={student} removeHandler={this.removeStudentHandler.bind(this)}/>)
-}
-                <hr/>
-                <span>First name: <input type='text' ref='firstName'/> Last name: <input type='text' ref='lastName'/> <button onClick={this.createStudentHandler.bind(this)}>Add a new student</button></span>
+                <form className="navbar-form navbar-left" role="search">
+                    <div className="form-group">
+                        <input type="text" className="form-control" placeholder="Search" value={this.props.filter} onChange={this.studentFilterChangeHandler.bind(this)}/>
+                    </div>
+                    <Button bsStyle='primary' onClick={this.createUserHandler.bind(this)}>Create a student</Button>
+                    <div className="container" style={{ paddingLeft: 0, paddingTop: 8 }}>
+                        {this.props.isFetching ?
+                            <span>Fetching students...</span> : this.props.students.filter(this.filterStudent.bind(this)).map(student => <Student key={student.get('id')} student={student} removeHandler={this.removeUserHandler.bind(this)}/>)
+                            }
+                    </div>
+                </form>
             </div>
         );
     }

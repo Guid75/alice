@@ -7,6 +7,7 @@ export const RECEIVE_TEACHERS = 'RECEIVE_TEACHERS';
 export const FILTER_TEACHERS = 'FILTER_TEACHERS';
 export const ADD_TEACHER_REQUEST = 'ADD_TEACHER_REQUEST';
 export const ADD_TEACHER_RESPONSE = 'ADD_TEACHER_RESPONSE';
+export const ADD_TEACHER_ERROR = 'ADD_TEACHER_ERROR';
 export const REMOVE_TEACHER_REQUEST = 'REMOVE_TEACHER_REQUEST';
 export const REMOVE_TEACHER_RESPONSE = 'REMOVE_TEACHER_RESPONSE';
 export const TEACHER_EDITION_MODAL_SHOW = 'TEACHER_EDITION_MODAL_SHOW';
@@ -60,23 +61,31 @@ function addTeacherResponse(teacher) {
     };
 }
 
+function addTeacherError(err) {
+    return {
+        type: ADD_TEACHER_ERROR,
+        error: err
+    };
+}
+
 export function addTeacher(teacher) {
     return dispatch => {
-        let deferred = Promise.defer();
         dispatch(addTeacherRequest(teacher));
-        request
-        .post('/api/v1/teachers')
-        .set('Content-Type', 'application/json')
-        .send(teacher)
-        .end((err, res) => {
-            if (err) {
-                deferred.reject(err);
-                return;
-            }
-            dispatch(addTeacherResponse(res.body));
-            deferred.resolve();
+        return new Promise(function (resolve, reject) {
+            request
+            .post('/api/v1/teachers')
+            .set('Content-Type', 'application/json')
+            .send(teacher)
+            .end((err, res) => {
+                if (err) {
+                    dispatch(addTeacherError(err));
+                    reject(err);
+                    return;
+                }
+                dispatch(addTeacherResponse(res.body));
+                resolve();
+            });
         });
-        return deferred.promise;
     };
 }
 

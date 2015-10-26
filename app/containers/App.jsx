@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchStudents, selectTab } from '../actions';
+import { selectTab } from '../actions';
+import { fetchStudents } from '../actions/students';
 import { fetchTeachers } from '../actions/teachers';
 import { List, Map, fromJS } from 'immutable';
 import { Modal, Button, Input } from 'react-bootstrap';
@@ -11,6 +12,7 @@ import Students from './Students.jsx';
 import Teachers from './Teachers.jsx';
 import Timeslots from './Timeslots.jsx';
 import TeacherEditionModal from './TeacherEditionModal.jsx';
+import StudentEditionModal from './StudentEditionModal.jsx';
 import AppHeader from '../components/AppHeader.jsx';
 import MainTabBar from '../components/MainTabBar.jsx';
 
@@ -45,6 +47,7 @@ var App = React.createClass({
                 <MainTabBar currentTab={this.props.currentTab} handleTabSelect={this.handleTabSelect}/>
                 {mainContain}
                 <TeacherEditionModal/>
+                <StudentEditionModal/>
             </div>
         );
     }
@@ -52,8 +55,7 @@ var App = React.createClass({
 
 function mapStateToProps(state) {
   return {
-      currentTab: state.get('currentTab') || 1,
-      displayEditionModal: state.getIn(['teachers', 'displayEditionModal'], false)
+      currentTab: state.get('currentTab') || 1
   };
 }
 
