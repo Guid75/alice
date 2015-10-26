@@ -21,6 +21,9 @@ let modal = React.createClass({
     cancelHandler() {
         this.props.dispatch(requestTeacherEditionModalCancel());
     },
+    componentDidUpdate: function() {
+        this.refs.firstName.getInputDOMNode().focus();
+    },
     render() {
         return (
             <Modal show={this.props.displayEditionModal} onHide={this.cancelHandler}>
