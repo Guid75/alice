@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button, Input } from 'react-bootstrap';
 
-import { requestTeacherEditionModalCancel, addTeacher } from '../actions/teachers';
+import { teacherEditionModalClose, addTeacher } from '../actions/teachers';
 
 let modal = React.createClass({
     applyHandler() {
@@ -15,11 +15,11 @@ let modal = React.createClass({
             lastName: this.refs.lastName.getValue()
         })).
         then(function () {
-            dispatch(requestTeacherEditionModalCancel());
+            dispatch(teacherEditionModalClose());
         });
     },
     cancelHandler() {
-        this.props.dispatch(requestTeacherEditionModalCancel());
+        this.props.dispatch(teacherEditionModalClose());
     },
     componentDidUpdate: function() {
         this.refs.firstName.getInputDOMNode().focus();
@@ -34,6 +34,7 @@ let modal = React.createClass({
                     <form className="form-horizontal">
                         <Input type="text" ref='firstName' label="First name" labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
                         <Input type="text" ref='lastName' label="Last name" labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
+                        <Input type="checkbox" label="Create an ALICE account for this teacher" wrapperClassName="col-xs-offset-3 col-xs-9" checked />
                     </form>
                 </Modal.Body>
                 <Modal.Footer>

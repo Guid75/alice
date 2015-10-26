@@ -11,7 +11,7 @@ import {
     REQUEST_TEACHERS, RECEIVE_TEACHERS, FILTER_TEACHERS,
     ADD_TEACHER_REQUEST, ADD_TEACHER_RESPONSE,
     REMOVE_TEACHER_REQUEST, REMOVE_TEACHER_RESPONSE,
-    REQUEST_TEACHER_EDITION_MODAL, REQUEST_TEACHER_EDITION_MODAL_CANCEL
+    TEACHER_EDITION_MODAL_SHOW, TEACHER_EDITION_MODAL_CLOSE
 } from '../actions/teachers';
 
 function students(state = fromJS({
@@ -79,9 +79,9 @@ function teachers(state = fromJS({
         return state.merge({
             items: items.delete(items.findIndex(item => item.get('id') === action.id))
         });
-        case REQUEST_TEACHER_EDITION_MODAL:
+        case TEACHER_EDITION_MODAL_SHOW:
         return state.set('displayEditionModal', true);
-        case REQUEST_TEACHER_EDITION_MODAL_CANCEL:
+        case TEACHER_EDITION_MODAL_CLOSE:
         return state.set('displayEditionModal', false);
         default:
         return state;
@@ -104,8 +104,8 @@ export default function reducer(state = Map({ currentTab: 'students' }), action)
         case ADD_TEACHER_REQUEST:
         case ADD_TEACHER_RESPONSE:
         case REMOVE_TEACHER_RESPONSE:
-        case REQUEST_TEACHER_EDITION_MODAL:
-        case REQUEST_TEACHER_EDITION_MODAL_CANCEL:
+        case TEACHER_EDITION_MODAL_SHOW:
+        case TEACHER_EDITION_MODAL_CLOSE:
         return state.update(
             'teachers', teachersState => teachers(teachersState, action));
         case SELECT_TAB:

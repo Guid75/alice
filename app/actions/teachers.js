@@ -9,8 +9,8 @@ export const ADD_TEACHER_REQUEST = 'ADD_TEACHER_REQUEST';
 export const ADD_TEACHER_RESPONSE = 'ADD_TEACHER_RESPONSE';
 export const REMOVE_TEACHER_REQUEST = 'REMOVE_TEACHER_REQUEST';
 export const REMOVE_TEACHER_RESPONSE = 'REMOVE_TEACHER_RESPONSE';
-export const REQUEST_TEACHER_EDITION_MODAL = 'REQUEST_TEACHER_CREATION_MODAL';
-export const REQUEST_TEACHER_EDITION_MODAL_CANCEL = 'REQUEST_TEACHER_CREATION_MODAL_CANCEL';
+export const TEACHER_EDITION_MODAL_SHOW = 'TEACHER_EDITION_MODAL_SHOW';
+export const TEACHER_EDITION_MODAL_CLOSE = 'TEACHER_EDITION_MODAL_CLOSE';
 
 function requestTeachers() {
     return {
@@ -105,14 +105,14 @@ export function removeTeacher(id) {
     }
 }
 
-export function requestTeacherEditionModal() {
+export function teacherEditionModalShow() {
     return {
-        type: REQUEST_TEACHER_EDITION_MODAL
+        type: TEACHER_EDITION_MODAL_SHOW
     };
 }
 
-export function requestTeacherEditionModalCancel() {
+export function teacherEditionModalClose() {
     return {
-        type: REQUEST_TEACHER_EDITION_MODAL_CANCEL
+        type: TEACHER_EDITION_MODAL_CLOSE
     };
 }

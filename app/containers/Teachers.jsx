@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Button, Navbar, Glyphicon, Input,
     Panel, FormGroup, Modal, OverlayTrigger, Popover, Tooltip } from 'react-bootstrap';
 import Teacher from '../components/Teacher.jsx';
-import { filterTeachers, addTeacher, removeTeacher, requestTeacherEditionModal } from '../actions/teachers';
+import { filterTeachers, addTeacher, removeTeacher, teacherEditionModalShow } from '../actions/teachers';
 import { List } from 'immutable';
 
 class Teachers extends React.Component {
@@ -24,7 +24,7 @@ class Teachers extends React.Component {
         (teacher.get('firstName') + ' ' + teacher.get('lastName')).toUpperCase().indexOf(this.props.filter.toUpperCase()) >= 0;
     }
     createTeacherHandler() {
-        this.props.dispatch(requestTeacherEditionModal());
+        this.props.dispatch(teacherEditionModalShow());
     }
     render() {
         return (
