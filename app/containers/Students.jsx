@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Glyphicon } from 'react-bootstrap';
 import Student from '../components/Student.jsx';
-import { Input } from 'react-bootstrap';
+import { Input, Panel } from 'react-bootstrap';
 import { fetchStudents, filterStudents, removeStudent, studentEditionModalShow } from '../actions/students';
 import { List } from 'immutable';
 
@@ -34,14 +34,33 @@ class Students extends React.Component {
         return (
             <div>
                 <form className="navbar-form navbar-left" role="search">
-                    <div className="form-group">
+                    <div className='form-group'>
                         <input type="text" className="form-control" placeholder="Search" value={this.props.filter} onChange={this.studentFilterChangeHandler.bind(this)}/>
                     </div>
                     <Button bsStyle='primary' onClick={this.createUserHandler.bind(this)}>Create a student</Button>
                     <div className="container" style={{ paddingLeft: 0, paddingTop: 8 }}>
-                        {this.props.isFetching ?
-                            <span>Fetching students...</span> : this.props.students.filter(this.filterStudent.bind(this)).map(student => <Student key={student.get('id')} student={student} removeHandler={this.removeUserHandler.bind(this)}/>)
-                            }
+                        <div className='students-formations-container'>
+                            <Panel header=<b>1ere Agri</b>>
+                                {this.props.isFetching ?
+                                    <span>Fetching students...</span> : this.props.students.filter(this.filterStudent.bind(this)).map(student => <Student key={student.get('id')} student={student} removeHandler={this.removeUserHandler.bind(this)}/>)
+                                    }
+                            </Panel>
+                            <Panel header=<b>Seconde Horti</b>>
+                                {this.props.isFetching ?
+                                    <span>Fetching students...</span> : this.props.students.filter(this.filterStudent.bind(this)).map(student => <Student key={student.get('id')} student={student} removeHandler={this.removeUserHandler.bind(this)}/>)
+                                    }
+                            </Panel>
+                            <Panel header=<b>Terminale Herboristerie</b>>
+                                {this.props.isFetching ?
+                                    <span>Fetching students...</span> : this.props.students.filter(this.filterStudent.bind(this)).map(student => <Student key={student.get('id')} student={student} removeHandler={this.removeUserHandler.bind(this)}/>)
+                                }
+                            </Panel>
+                            <Panel header=<b>pouet</b>>
+                                {this.props.isFetching ?
+                                    <span>Fetching students...</span> : this.props.students.filter(this.filterStudent.bind(this)).map(student => <Student key={student.get('id')} student={student} removeHandler={this.removeUserHandler.bind(this)}/>)
+                                }
+                            </Panel>
+                        </div>
                     </div>
                 </form>
             </div>

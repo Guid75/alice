@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Modal, Button, Input } from 'react-bootstrap';
+import { Modal, Button, Input, DropdownButton, MenuItem } from 'react-bootstrap';
 
 import { studentEditionModalClose, addStudent } from '../actions/students';
 
@@ -25,6 +25,11 @@ let modal = React.createClass({
         this.refs.firstName.getInputDOMNode().focus();
     },
     render() {
+        var dropDownButton = <DropdownButton id="input-dropdown-addon">
+            <MenuItem key="1">1ere Agri</MenuItem>
+            <MenuItem key="2">Seconde Horti</MenuItem>
+        </DropdownButton>;
+
         return (
             <Modal show={this.props.displayEditionModal} onHide={this.cancelHandler}>
                 <Modal.Header closeButton>
@@ -32,8 +37,9 @@ let modal = React.createClass({
                 </Modal.Header>
                 <Modal.Body>
                     <form className="form-horizontal">
-                        <Input type="text" ref='firstName' label="First name" labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
-                        <Input type="text" ref='lastName' label="Last name" labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
+                        <Input type="text" ref='firstName' label='First name' labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
+                        <Input type="text" ref='lastName' label='Last name' labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
+                        <Input type="text" ref='formation' label='Formation' labelClassName="col-xs-3" wrapperClassName="col-xs-9" buttonAfter={dropDownButton} />
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
