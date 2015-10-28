@@ -38,6 +38,10 @@ mongoose.connect(format(complete_url), function (err) {
     if (err) {
         console.error(err);
     }
+
+    Formation.findOne().populate('students').exec(function (err, d) {
+        console.log(d);
+    });
 });
 
 if (!isProduction) {

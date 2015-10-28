@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { selectTab } from '../actions';
 import { fetchStudents } from '../actions/students';
 import { fetchTeachers } from '../actions/teachers';
+import { fetchFormations } from '../actions/formations';
 import { List, Map, fromJS } from 'immutable';
 import { Modal, Button, Input } from 'react-bootstrap';
 
@@ -20,6 +21,7 @@ var App = React.createClass({
     componentDidMount() {
         this.props.dispatch(fetchStudents());
         this.props.dispatch(fetchTeachers());
+        this.props.dispatch(fetchFormations());
     },
     handleTabSelect(key) {
         this.props.dispatch(selectTab(key));

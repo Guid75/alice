@@ -1,5 +1,8 @@
 'use strict';
 
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
 module.exports = {
 	schema: {
 		firstName: {
@@ -7,6 +10,11 @@ module.exports = {
 		},
 		lastName: {
 			type: String
+		},
+		formation : {
+			type: Schema.Types.ObjectId,
+		//	type: String,
+			ref: 'Formation'
 		}
 	},
 	options: {

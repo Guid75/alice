@@ -3,6 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button, Input, DropdownButton, MenuItem } from 'react-bootstrap';
+import { List } from 'immutable';
 
 import { studentEditionModalClose, addStudent } from '../actions/students';
 
@@ -12,7 +13,8 @@ let modal = React.createClass({
         console.log(this.refs.firstName);
         dispatch(addStudent({
             firstName: this.refs.firstName.getValue(),
-            lastName: this.refs.lastName.getValue()
+            lastName: this.refs.lastName.getValue(),
+            formation: '562fe6b2e4ac121b545fa8a2'
         })).
         then(function () {
             dispatch(studentEditionModalClose());
@@ -25,10 +27,11 @@ let modal = React.createClass({
         this.refs.firstName.getInputDOMNode().focus();
     },
     render() {
-        var dropDownButton = <DropdownButton id="input-dropdown-addon">
-            <MenuItem key="1">1ere Agri</MenuItem>
-            <MenuItem key="2">Seconde Horti</MenuItem>
-        </DropdownButton>;
+        var dropDownButton = (
+            <DropdownButton id="input-dropdown-addon" title="">
+                {this.props.formations.map(formation => <MenuItem key={formation.get('id')}>{formation.get('title')}</MenuItem>)}
+            </DropdownButton>
+        );
 
         return (
             <Modal show={this.props.displayEditionModal} onHide={this.cancelHandler}>
@@ -52,9 +55,10 @@ let modal = React.createClass({
 });
 
 function mapStateToProps(state) {
-  return {
-      displayEditionModal: state.getIn(['students', 'displayEditionModal'], false)
-  };
+    return {
+        displayEditionModal: state.getIn(['students', 'displayEditionModal'], false),
+        formations: state.getIn(['formations', 'items'], List())
+    };
 }
 
 export default connect(mapStateToProps)(modal);
