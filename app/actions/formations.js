@@ -83,7 +83,7 @@ export function addFormation(formation) {
                     return;
                 }
                 dispatch(addFormationResponse(res.body));
-                resolve();
+                resolve(res.body);
             });
         });
     };

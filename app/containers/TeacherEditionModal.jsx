@@ -21,11 +21,6 @@ let modal = React.createClass({
     cancelHandler() {
         this.props.dispatch(teacherEditionModalClose());
     },
-    componentDidUpdate: function() {
-        if (this.refs.firstName) {
-            this.refs.firstName.getInputDOMNode().focus();
-        }
-    },
     render() {
         return (
             <Modal show={this.props.displayEditionModal} onHide={this.cancelHandler}>
@@ -34,7 +29,7 @@ let modal = React.createClass({
                 </Modal.Header>
                 <Modal.Body>
                     <form className="form-horizontal">
-                        <Input type="text" ref='firstName' label="First name" labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
+                        <Input type="text" ref='firstName' autoFocus label="First name" labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
                         <Input type="text" ref='lastName' label="Last name" labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
                         <Input type="checkbox" label="Create an ALICE account for this teacher" wrapperClassName="col-xs-offset-3 col-xs-9" checked />
                     </form>
