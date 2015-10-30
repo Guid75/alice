@@ -16,6 +16,7 @@
     "lodash": "^3.10.1",
     "method-override": "^2.3.5",
     "mongoose": "^4.1.11",
+    "node-sass": "^3.4.1",
     "react": "^0.14.0",
     "react-bootstrap": "^0.27.1",
     "react-dom": "^0.14.0",
