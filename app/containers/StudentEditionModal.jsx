@@ -8,13 +8,20 @@ import { List } from 'immutable';
 import { studentEditionModalClose, addStudent } from '../actions/students';
 
 let modal = React.createClass({
+    getInitialState() {
+        return {
+            firstName: '',
+            lastName: '',
+            formation: '',
+            formationId: ''
+        };
+    },
     applyHandler() {
         const dispatch = this.props.dispatch;
-        console.log(this.refs.firstName);
         dispatch(addStudent({
             firstName: this.refs.firstName.getValue(),
             lastName: this.refs.lastName.getValue(),
-            formation: '562fe6b2e4ac121b545fa8a2'
+            formation: this.state.formationId
         })).
         then(function () {
             dispatch(studentEditionModalClose());
@@ -22,6 +29,13 @@ let modal = React.createClass({
     },
     cancelHandler() {
         this.props.dispatch(studentEditionModalClose());
+    },
+    formationSelected(e, id) {
+        const formation = this.props.formations.find(formation => formation.get('id') === id);
+        this.setState({
+            formation: formation.get('title'),
+            formationId: formation.get('id')
+        });
     },
     componentDidUpdate: function() {
         if (this.refs.firstName) {
@@ -31,7 +45,7 @@ let modal = React.createClass({
     render() {
         var dropDownButton = (
             <DropdownButton id="input-dropdown-addon" title="">
-                {this.props.formations.map(formation => <MenuItem key={formation.get('id')}>{formation.get('title')}</MenuItem>)}
+                {this.props.formations.map(formation => <MenuItem eventKey={formation.get('id')} key={formation.get('id')} onSelect={this.formationSelected}>{formation.get('title')}</MenuItem>)}
             </DropdownButton>
         );
 
@@ -44,7 +58,7 @@ let modal = React.createClass({
                     <form className='form-horizontal'>
                         <Input type='text' ref='firstName' label='First name' labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
                         <Input type='text' ref='lastName' label='Last name' labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
-                        <Input type='text' ref='formation' label='Formation' labelClassName="col-xs-3" wrapperClassName="col-xs-9" buttonAfter={dropDownButton} />
+                        <Input type='text' ref='formation' value={this.state.formation} label='Formation' labelClassName="col-xs-3" wrapperClassName="col-xs-9" buttonAfter={dropDownButton} />
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
