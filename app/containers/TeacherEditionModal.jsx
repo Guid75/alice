@@ -22,7 +22,9 @@ let modal = React.createClass({
         this.props.dispatch(teacherEditionModalClose());
     },
     componentDidUpdate: function() {
-        this.refs.firstName.getInputDOMNode().focus();
+        if (this.refs.firstName) {
+            this.refs.firstName.getInputDOMNode().focus();
+        }
     },
     render() {
         return (

@@ -1,5 +1,6 @@
 'use strict';
 
+import { fromJS } from 'immutable';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
@@ -12,7 +13,26 @@ const createStoreWithMiddleware = applyMiddleware(
     logger
 )(createStore);
 
-export default function configureStore(initialState) {
+export default function configureStore() {
+    const initialState = fromJS({
+        students: {
+            isFetching: false,
+            items: [],
+            filter: ''
+        },
+        teachers: {
+            isFetching: false,
+            items: [],
+            filter: ''
+        },
+        formations: {
+            isFetching: false,
+            items: [],
+            filter: ''
+        },
+        currentTab: 'students'
+    });
+
     const store = createStoreWithMiddleware(rootReducer, initialState);
 
     if (module.hot) {

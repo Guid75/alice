@@ -23,7 +23,7 @@ export default class Formation extends React.Component {
         return (
             <Panel header=<b>{this.props.formation.get('title')}</b>>
                 {this.props.students.filter(this.filterStudent.bind(this)).map((student) => {
-                    return <Student key={student.get('id')} student={student} removeHandler={this.removeUserHandler.bind(this)}/>
+                    return <Student key={student.get('id')} student={student} removeHandler={this.props.removeStudentHandler}/>
                 })}
             </Panel>
         );
@@ -33,7 +33,7 @@ export default class Formation extends React.Component {
     //     }
 }
 
-Student.propTypes = {
+Formation.propTypes = {
     formation: React.PropTypes.object.isRequired,
     students: React.PropTypes.object.isRequired,
     studentFilter: React.PropTypes.string.isRequired,

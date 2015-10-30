@@ -57,7 +57,7 @@ var App = React.createClass({
 
 function mapStateToProps(state) {
   return {
-      currentTab: state.get('currentTab') || 1
+      currentTab: state.get('currentTab')
   };
 }
 

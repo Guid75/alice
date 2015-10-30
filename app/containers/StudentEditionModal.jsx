@@ -24,7 +24,9 @@ let modal = React.createClass({
         this.props.dispatch(studentEditionModalClose());
     },
     componentDidUpdate: function() {
-        this.refs.firstName.getInputDOMNode().focus();
+        if (this.refs.firstName) {
+            this.refs.firstName.getInputDOMNode().focus();
+        }
     },
     render() {
         var dropDownButton = (
@@ -39,10 +41,10 @@ let modal = React.createClass({
                     <Modal.Title>Create a student</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <form className="form-horizontal">
-                        <Input type="text" ref='firstName' label='First name' labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
-                        <Input type="text" ref='lastName' label='Last name' labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
-                        <Input type="text" ref='formation' label='Formation' labelClassName="col-xs-3" wrapperClassName="col-xs-9" buttonAfter={dropDownButton} />
+                    <form className='form-horizontal'>
+                        <Input type='text' ref='firstName' label='First name' labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
+                        <Input type='text' ref='lastName' label='Last name' labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
+                        <Input type='text' ref='formation' label='Formation' labelClassName="col-xs-3" wrapperClassName="col-xs-9" buttonAfter={dropDownButton} />
                     </form>
                 </Modal.Body>
                 <Modal.Footer>

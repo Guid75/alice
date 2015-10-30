@@ -16,6 +16,7 @@ class Students extends React.Component {
         this.props.dispatch(filterStudents(event.target.value));
     }
     removeUserHandler(id) {
+        console.log(id);
         this.props.dispatch(removeStudent(id));
     }
     createUserHandler() {
@@ -35,7 +36,13 @@ class Students extends React.Component {
                     <Button bsStyle='primary' onClick={this.createUserHandler.bind(this)}>Create a student</Button>
                     <div className="container" style={{ paddingLeft: 0, paddingTop: 8 }}>
                         <div className='students-formations-container'>
-                            {this.props.formations.map(formation => <Formation formation={formation} students={this.props.students} studentFilter={this.props.filter}/>)}
+                            {this.props.formations.map(formation => <Formation
+                                key={formation.get('id')}
+                                formation={formation}
+                                students={this.props.students}
+                                studentFilter={this.props.filter}
+                                removeStudentHandler={this.removeUserHandler.bind(this)}
+                                /> )}
                         </div>
                     </div>
                 </form>
