@@ -16,7 +16,6 @@ class Students extends React.Component {
         this.props.dispatch(filterStudents(event.target.value));
     }
     removeUserHandler(id) {
-        console.log(id);
         this.props.dispatch(removeStudent(id));
     }
     createUserHandler() {

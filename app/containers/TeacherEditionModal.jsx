@@ -9,7 +9,6 @@ import { teacherEditionModalClose, addTeacher } from '../actions/teachers';
 let modal = React.createClass({
     applyHandler() {
         const dispatch = this.props.dispatch;
-        console.log(this.refs.firstName);
         dispatch(addTeacher({
             firstName: this.refs.firstName.getValue(),
             lastName: this.refs.lastName.getValue()
