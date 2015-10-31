@@ -5,7 +5,9 @@ import { connect } from 'react-redux';
 import { Button, Glyphicon } from 'react-bootstrap';
 import Formation from '../components/Formation.jsx';
 import { Input, Panel } from 'react-bootstrap';
-import { fetchStudents, filterStudents, removeStudent, studentEditionModalShow } from '../actions/students';
+import { fetchStudents, filterStudents, removeStudent,
+    studentEditionModalShow } from '../actions/students';
+import { removeFormation } from '../actions/formations';
 import { List } from 'immutable';
 
 class Students extends React.Component {
@@ -17,6 +19,9 @@ class Students extends React.Component {
     }
     removeUserHandler(id) {
         this.props.dispatch(removeStudent(id));
+    }
+    removeFormationHandler(id) {
+        this.props.dispatch(removeFormation(id));
     }
     createUserHandler() {
         this.props.dispatch(studentEditionModalShow());
@@ -55,6 +60,7 @@ class Students extends React.Component {
                                 studentFilter={this.createStudentsFilter(formation)}
                                 filter={this.props.filter}
                                 removeStudentHandler={this.removeUserHandler.bind(this)}
+                                removeFormationHandler={this.removeFormationHandler.bind(this)}
                                 /> )}
                         </div>
                     </div>

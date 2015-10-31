@@ -82,7 +82,7 @@ let modal = React.createClass({
                     <form className='form-horizontal'>
                         <Input type='text' ref='firstName' autoFocus label='First name' labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
                         <Input type='text' ref='lastName' label='Last name' labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
-                        <Input type='text' ref='formation' value={this.state.formation} onChange={this.formationChangeHandler} label='Formation' labelClassName="col-xs-3" wrapperClassName="col-xs-9" buttonAfter={dropDownButton} />
+                        <Input type='text' ref='formation' value={this.state.formation} onChange={this.formationChangeHandler} label='Formation' labelClassName="col-xs-3" wrapperClassName="col-xs-9" buttonAfter={dropDownButton} help={this.props.formations.find(formation => formation.get('title') === this.state.formation) ? undefined : "This formation is new and will be created"}/>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
