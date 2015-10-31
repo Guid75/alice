@@ -21,6 +21,19 @@ class Students extends React.Component {
     createUserHandler() {
         this.props.dispatch(studentEditionModalShow());
     }
+    createStudentsFilter(formation) {
+        return student => {
+            var filter = this.props.filter.toUpperCase();
+            return student.get('formation') === formation.get('id') &&
+                (student.get('firstName').toUpperCase().indexOf(filter) >= 0 ||
+                student.get('lastName').toUpperCase().indexOf(filter) >= 0 ||
+                (student.get('firstName') + ' ' + student.get('lastName')).toUpperCase().indexOf(filter) >= 0);
+        };
+    }
+    formationFilter(formation) {
+        return true;
+//        return this.props.students.filter(this.createStudentsFilter(formation)).size > 0;
+    }
     render() {
         const filterStyle = {
             width: 400,
@@ -35,11 +48,12 @@ class Students extends React.Component {
                     <Button bsStyle='primary' onClick={this.createUserHandler.bind(this)}>Create a student</Button>
                     <div className="container" style={{ paddingLeft: 0, paddingTop: 8 }}>
                         <div className='students-formations-container'>
-                            {this.props.formations.map(formation => <Formation
+                            {this.props.formations.filter(this.formationFilter.bind(this)).map(formation => <Formation
                                 key={formation.get('id')}
                                 formation={formation}
                                 students={this.props.students}
-                                studentFilter={this.props.filter}
+                                studentFilter={this.createStudentsFilter(formation)}
+                                filter={this.props.filter}
                                 removeStudentHandler={this.removeUserHandler.bind(this)}
                                 /> )}
                         </div>
@@ -49,26 +63,6 @@ class Students extends React.Component {
         );
     }
 }
-// <Panel header=<b>1ere Agri</b>>
-//     {this.props.isFetching ?
-//         <span>Fetching students...</span> : this.props.students.filter(this.filterStudent.bind(this)).map(student => <Student key={student.get('id')} student={student} removeHandler={this.removeUserHandler.bind(this)}/>)
-//         }
-// </Panel>
-// <Panel header=<b>Seconde Horti</b>>
-//     {this.props.isFetching ?
-//         <span>Fetching students...</span> : this.props.students.filter(this.filterStudent.bind(this)).map(student => <Student key={student.get('id')} student={student} removeHandler={this.removeUserHandler.bind(this)}/>)
-//         }
-// </Panel>
-// <Panel header=<b>Terminale Herboristerie</b>>
-//     {this.props.isFetching ?
-//         <span>Fetching students...</span> : this.props.students.filter(this.filterStudent.bind(this)).map(student => <Student key={student.get('id')} student={student} removeHandler={this.removeUserHandler.bind(this)}/>)
-//     }
-// </Panel>
-// <Panel header=<b>pouet</b>>
-//     {this.props.isFetching ?
-//         <span>Fetching students...</span> : this.props.students.filter(this.filterStudent.bind(this)).map(student => <Student key={student.get('id')} student={student} removeHandler={this.removeUserHandler.bind(this)}/>)
-//     }
-// </Panel>
 
 function mapStateToProps(state) {
   return {

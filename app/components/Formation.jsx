@@ -9,21 +9,17 @@ export default class Formation extends React.Component {
     constructor(props) {
         super(props);
     }
-    filterStudent(student) {
-        var filter = this.props.studentFilter.toUpperCase();
-        return student.get('formation') === this.props.formation.get('id') &&
-            (student.get('firstName').toUpperCase().indexOf(filter) >= 0 ||
-            student.get('lastName').toUpperCase().indexOf(filter) >= 0 ||
-            (student.get('firstName') + ' ' + student.get('lastName')).toUpperCase().indexOf(filter) >= 0);
-    }
     removeUserHandler() {
         console.log('remove user');
+    }
+    studentFormationFilter(student) {
+        return student.get('formation') === this.props.formation.get('id');
     }
     render() {
         return (
             <Panel header=<b>{this.props.formation.get('title')}</b>>
-                {this.props.students.filter(this.filterStudent.bind(this)).map((student) => {
-                    return <Student key={student.get('id')} student={student} removeHandler={this.props.removeStudentHandler}/>
+                {this.props.students.filter(this.studentFormationFilter.bind(this)).map((student) => {
+                    return <Student key={student.get('id')} student={student} grayed={!this.props.studentFilter(student)} removeHandler={this.props.removeStudentHandler}/>
                 })}
             </Panel>
         );
@@ -36,5 +32,5 @@ export default class Formation extends React.Component {
 Formation.propTypes = {
     formation: React.PropTypes.object.isRequired,
     students: React.PropTypes.object.isRequired,
-    studentFilter: React.PropTypes.string.isRequired,
+    studentFilter: React.PropTypes.func.isRequired
 };

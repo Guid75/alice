@@ -8,8 +8,12 @@ export default class Student extends React.Component {
         super(props);
     }
     render() {
+        const grayedStyle = {
+            color: '#DFDFDF'
+        };
+
         return (
-            <p>{this.props.student.get('firstName')} <b>{this.props.student.get('lastName').toUpperCase()}</b> <Button bsSize="xsmall" bsStyle="danger" onClick={this.props.removeHandler.bind(null, this.props.student.get('id'))} ><Glyphicon glyph="remove" /> Remove</Button>
+            <p><span style={this.props.grayed ? { color: '#DFDFDF'} : undefined}>{this.props.student.get('firstName')} <b>{this.props.student.get('lastName').toUpperCase()}</b></span> <Button bsSize="xsmall" bsStyle="danger" onClick={this.props.removeHandler.bind(null, this.props.student.get('id'))} ><Glyphicon glyph="remove" /> Remove</Button>
             </p>
         );
     }
@@ -17,5 +21,6 @@ export default class Student extends React.Component {
 
 Student.propTypes = {
     student: React.PropTypes.object.isRequired,
-    removeHandler: React.PropTypes.func.isRequired
+    removeHandler: React.PropTypes.func.isRequired,
+    grayed: React.PropTypes.bool
 };

@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { Modal, Button, Input, DropdownButton, MenuItem } from 'react-bootstrap';
 import { List } from 'immutable';
 import Loader from 'react-loader';
-
 import { studentEditionModalClose, addStudent } from '../actions/students';
 import { addFormation } from '../actions/formations';
 
