@@ -34,7 +34,7 @@ export default class Formation extends React.Component {
     renderHeader() {
         return <div><b>{this.props.formation.get('title')}</b>{this.state.hover ?
             <SplitButton bsStyle='primary' bsSize='xsmall' className='pull-right' title='Add student'>
-                <MenuItem eventKey="remove" onSelect={this.selectAction.bind(this)}>Remove this group</MenuItem>
+                <MenuItem eventKey="remove" onSelect={this.selectAction.bind(this)}><Glyphicon glyph="remove" /> Remove this group</MenuItem>
             </SplitButton> : undefined}</div>;
     }
     render() {
