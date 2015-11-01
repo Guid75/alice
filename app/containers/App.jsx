@@ -14,6 +14,7 @@ import Teachers from './Teachers.jsx';
 import Timeslots from './Timeslots.jsx';
 import TeacherEditionModal from './TeacherEditionModal.jsx';
 import StudentEditionModal from './StudentEditionModal.jsx';
+import StudentCSVModal from './StudentCSVModal.jsx';
 import AppHeader from '../components/AppHeader.jsx';
 import MainTabBar from '../components/MainTabBar.jsx';
 
@@ -50,6 +51,7 @@ var App = React.createClass({
                 {mainContain}
                 <TeacherEditionModal/>
                 <StudentEditionModal/>
+                <StudentCSVModal/>
             </div>
         );
     }

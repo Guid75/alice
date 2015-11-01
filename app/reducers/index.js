@@ -195,7 +195,9 @@ let reducers = {
         ADD_STUDENT_RESPONSE: (domain, action) => domain.merge({ items: domain.get('items').push(fromJS(action.student))}),
         REMOVE_STUDENT_RESPONSE: (domain, action) => domain.merge({ items: domain.get('items').delete(domain.get('items').findIndex(item => item.get('id') === action.id))}),
         STUDENT_EDITION_MODAL_SHOW: (domain, action) => domain.set('displayEditionModal', true),
-        STUDENT_EDITION_MODAL_CLOSE: (domain, action) => domain.set('displayEditionModal', false)
+        STUDENT_EDITION_MODAL_CLOSE: (domain, action) => domain.set('displayEditionModal', false),
+        STUDENT_CSV_MODAL_SHOW: (domain, action) => domain.set('displayCSVModal', true),
+        STUDENT_CSV_MODAL_CLOSE: (domain, action) => domain.set('displayCSVModal', false)
     },
     formations: {
         REQUEST_FORMATIONS: (domain, action) => domain.merge({ isFetching: true }),

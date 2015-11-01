@@ -12,6 +12,8 @@ export const REMOVE_STUDENT_REQUEST = 'REMOVE_STUDENT_REQUEST';
 export const REMOVE_STUDENT_RESPONSE = 'REMOVE_STUDENT_RESPONSE';
 export const STUDENT_EDITION_MODAL_SHOW = 'STUDENT_EDITION_MODAL_SHOW';
 export const STUDENT_EDITION_MODAL_CLOSE = 'STUDENT_EDITION_MODAL_CLOSE';
+export const STUDENT_CSV_MODAL_SHOW = 'STUDENT_CSV_MODAL_SHOW';
+export const STUDENT_CSV_MODAL_CLOSE = 'STUDENT_CSV_MODAL_CLOSE';
 
 function requestStudents() {
     return {
@@ -123,5 +125,17 @@ export function studentEditionModalShow() {
 export function studentEditionModalClose() {
     return {
         type: STUDENT_EDITION_MODAL_CLOSE
+    };
+}
+
+export function studentCSVModalShow() {
+    return {
+        type: STUDENT_CSV_MODAL_SHOW
+    };
+}
+
+export function studentCSVModalClose() {
+    return {
+        type: STUDENT_CSV_MODAL_CLOSE
     };
 }
