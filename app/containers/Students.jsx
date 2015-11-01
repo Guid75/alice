@@ -2,9 +2,8 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Glyphicon } from 'react-bootstrap';
+import { SplitButton, MenuItem, Input, Panel, Button, Glyphicon } from 'react-bootstrap';
 import Formation from '../components/Formation.jsx';
-import { Input, Panel } from 'react-bootstrap';
 import { fetchStudents, filterStudents, removeStudent,
     studentEditionModalShow } from '../actions/students';
 import { removeFormation } from '../actions/formations';
@@ -50,7 +49,10 @@ class Students extends React.Component {
                     <div className='form-group'>
                         <input type="text" className="form-control" placeholder="Search" value={this.props.filter} onChange={this.studentFilterChangeHandler.bind(this)}/>
                     </div>
-                    <Button bsStyle='primary' onClick={this.createUserHandler.bind(this)}>Create a student</Button>
+                    <SplitButton bsStyle='primary' title='Create a student' onClick={this.createUserHandler.bind(this)}>
+                        <MenuItem eventKey="1">Import student from a CSV</MenuItem>
+                    </SplitButton>
+                    {/*<Button bsStyle='primary' onClick={this.createUserHandler.bind(this)}>Create a student</Button>*/}
                     <div className="container" style={{ paddingLeft: 0, paddingTop: 8 }}>
                         <div className='students-formations-container'>
                             {this.props.formations.filter(this.formationFilter.bind(this)).map(formation => <Formation

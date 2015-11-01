@@ -10,6 +10,7 @@ export const ADD_FORMATION_RESPONSE = 'ADD_FORMATION_RESPONSE';
 export const ADD_FORMATION_ERROR = 'ADD_FORMATION_ERROR';
 export const REMOVE_FORMATION_REQUEST = 'REMOVE_FORMATION_REQUEST';
 export const REMOVE_FORMATION_RESPONSE = 'REMOVE_FORMATION_RESPONSE';
+export const REMOVE_FORMATION_ERROR = 'REMOVE_FORMATION_ERROR';
 export const FORMATION_EDITION_MODAL_SHOW = 'FORMATION_EDITION_MODAL_SHOW';
 export const FORMATION_EDITION_MODAL_CLOSE = 'FORMATION_EDITION_MODAL_CLOSE';
 
@@ -71,7 +72,7 @@ function addFormationError(err) {
 export function addFormation(formation) {
     return dispatch => {
         dispatch(addFormationRequest(formation));
-        return new Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
             request
             .post('/api/v1/formations')
             .set('Content-Type', 'application/json')
@@ -94,22 +95,37 @@ function removeFormationRequest(id) {
         type: REMOVE_FORMATION_REQUEST,
         id: id
     };
-};
+}
 
 function removeFormationResponse(id) {
     return {
         type: REMOVE_FORMATION_RESPONSE,
         id: id
     };
-};
+}
+
+function removeFormationError(id) {
+    return {
+        type: REMOVE_FORMATION_ERROR,
+        id: id
+    };
+}
 
 export function removeFormation(id) {
     return dispatch => {
         dispatch(removeFormationRequest(id));
-        request
-        .del('/api/v1/formations/' + id)
-        .end((err, res) => {
-            dispatch(removeFormationResponse(id));
+        return new Promise((resolve, reject) => {
+            request
+            .del('/api/v1/formations/' + id)
+            .end((err, res) => {
+                if (err) {
+                    dispatch(removeFormationError(err));
+                    reject(err);
+                    return;
+                }
+                dispatch(removeFormationResponse(id));
+                resolve(res.body);
+            });
         });
     }
 }

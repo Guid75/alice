@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import { Button, Glyphicon, Panel } from 'react-bootstrap';
+import { SplitButton, MenuItem, Button, Glyphicon, Panel } from 'react-bootstrap';
 
 import Student from './Student.jsx';
 
@@ -13,9 +13,6 @@ export default class Formation extends React.Component {
             hover: false
         };
     }
-    removeUserHandler() {
-        console.log('remove user');
-    }
     studentFormationFilter(student) {
         return student.get('formation') === this.props.formation.get('id');
     }
@@ -25,8 +22,20 @@ export default class Formation extends React.Component {
     mouseOut() {
         this.setState({hover: false});
     }
+    selectAction(event, action) {
+        switch (action) {
+            case 'remove':
+            this.props.removeFormationHandler(this.props.formation.get('id'));
+            break;
+            default:
+            break;
+        }
+    }
     renderHeader() {
-        return <div><b>{this.props.formation.get('title')}</b>{this.state.hover ? <Button bsSize="xsmall" bsStyle='danger' className='pull-right' onClick={this.props.removeFormationHandler}>Remove</Button> : undefined}</div>;
+        return <div><b>{this.props.formation.get('title')}</b>{this.state.hover ?
+            <SplitButton bsStyle='primary' bsSize='xsmall' className='pull-right' title='Add student'>
+                <MenuItem eventKey="remove" onSelect={this.selectAction.bind(this)}>Remove this group</MenuItem>
+            </SplitButton> : undefined}</div>;
     }
     render() {
         return (
@@ -37,9 +46,6 @@ export default class Formation extends React.Component {
             </Panel>
         );
     }
-    // {this.props.isFetching ?
-    //     <span>Fetching students...</span> : this.props.students.filter(this.filterStudent.bind(this)).map(student => <Student key={student.get('id')} student={student} removeHandler={this.removeUserHandler.bind(this)}/>)
-    //     }
 }
 
 Formation.propTypes = {
