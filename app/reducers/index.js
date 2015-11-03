@@ -209,7 +209,18 @@ let reducers = {
         ADD_FORMATION_RESPONSE: (domain, action) => domain.merge({ items: domain.get('items').push(fromJS(action.formation))}),
         REMOVE_FORMATION_RESPONSE: (domain, action) => domain.merge({ items: domain.get('items').delete(domain.get('items').findIndex(item => item.get('id') === action.id))})
     },
-    SELECT_TAB: (domain, action) => domain.set('currentTab', action.tab)
+    SELECT_TAB: (domain, action) => domain.set('currentTab', action.tab),
+    IMPORT_STUDENTS_RESPONSE: (domain, action) => {
+        var d = domain.merge({
+            students: domain.get('students').merge({
+                items: domain.getIn(['students', 'items']).toJS().concat(action.toInsert.students)
+            }),
+            formations: domain.get('formations').merge({
+                items: domain.getIn(['formations', 'items']).toJS().concat(action.toInsert.formations)
+            })
+        });
+        return d;
+    }
 };
 
 export default combineReducers(reducers);

@@ -11,7 +11,7 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(models);
+app.use(models.router);
 
 // mongoose.connect('mongodb://localhost/alice-api-test', function (err) {
 //     if (err) {

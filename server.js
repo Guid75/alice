@@ -1,14 +1,16 @@
-var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var models = require('./server/models');
-var format = require('util').format;
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const format = require('util').format;
 
-var app = express();
+const models = require('./server/models');
+const importRouter = require('./server/import');
+
+const app = express();
 
 var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? 8080 : 3001;
@@ -26,7 +28,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride());
 
-app.use(models);
+app.use(models.router);
+app.use(importRouter);
 
 if (db_noauth) {
     complete_url = format('mongodb://@%s', db_url);
@@ -34,14 +37,10 @@ if (db_noauth) {
     complete_url = format('mongodb://%s:%s@%s', login, password, db_url);
 }
 
-mongoose.connect(format(complete_url), function (err) {
+mongoose.connect(format(complete_url), (err) => {
     if (err) {
         console.error(err);
     }
-
-    Formation.findOne().populate('students').exec(function (err, d) {
-        console.log(d);
-    });
 });
 
 if (!isProduction) {
@@ -57,7 +56,7 @@ if (!isProduction) {
     app.use(require('webpack-hot-middleware')(compiler));
 }
 
-app.listen(process.env.PORT || port, function(err) {
+app.listen(process.env.PORT || port, (err) => {
   if (err) {
     console.log(err);
     return;

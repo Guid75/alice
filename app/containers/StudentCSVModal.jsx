@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Modal, Button, Input, DropdownButton, MenuItem } from 'react-bootstrap';
 import { List } from 'immutable';
 import Loader from 'react-loader';
-import { studentCSVModalClose } from '../actions/students';
+import { studentCSVModalClose, importStudents } from '../actions/students';
 
 require('promise.prototype.finally');
 
@@ -20,30 +20,14 @@ let modal = React.createClass({
     },
     applyHandler() {
         const dispatch = this.props.dispatch;
-        const formation = this.props.formations.find(formation => formation.get('title') === this.state.formation);
-        let p;
 
         this.setState({
             saving: true
         });
 
-        if (!formation) {
-            p = dispatch(addFormation({
-                title: this.state.formation
-            }));
-        } else {
-            p = Promise.resolve({ id: formation.get('id') });
-        }
-
-        p.then(formation =>  {
-            dispatch(addStudent({
-                firstName: this.refs.firstName.getValue(),
-                lastName: this.refs.lastName.getValue(),
-                formation: formation.id
-            }));
-        })
+        dispatch(importStudents(this.refs.csv.getValue()))
         .then(() => {
-            dispatch(studentEditionModalClose());
+            dispatch(studentCSVModalClose());
         })
         .finally(() => {
             this.setState({
@@ -53,6 +37,9 @@ let modal = React.createClass({
     },
     cancelHandler() {
         this.props.dispatch(studentCSVModalClose());
+    },
+    fillArea() {
+        this.refs.csv.getInputDOMNode().value = 'Guillaume;Denry;Terminal Agri\nVincent;Denry;1ere Horti\nBenoit;Denry;Terminal Agri\n'
     },
     render() {
         const textAreaStyle = {
@@ -65,12 +52,13 @@ let modal = React.createClass({
                 </Modal.Header>
                 <Modal.Body>
                     <form className='form-horizontal'>
-                        <Input type='textarea' style={textAreaStyle} ref='csv' autoFocus label='CSV' labelClassName="col-xs-2" wrapperClassName="col-xs-10" />
+                        <Input type='textarea' style={textAreaStyle} ref='csv' autoFocus label='Copy your CSV here' labelClassName="col-xs-2" wrapperClassName="col-xs-10" help='firstname;lastname;formation'/>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Loader loaded={!this.state.saving}>
                     </Loader>
+                    <Button bsStyle='default' onClick={this.fillArea}>Fill area with dummy data</Button>
                     <Button bsStyle='primary' onClick={this.applyHandler}>Create</Button>
                     <Button bsStyle='danger' onClick={this.cancelHandler}>Cancel</Button>
                 </Modal.Footer>

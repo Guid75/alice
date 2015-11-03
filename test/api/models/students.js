@@ -1,23 +1,29 @@
-var express = require('express');
-var expect = require('chai').expect;
-var models = require('../../../server/models');
-var request = require('supertest-as-promised');
-var mongoose = require('mongoose');
-var exec = require('child_process').exec;
-var bodyParser = require('body-parser');
+const express = require('express');
+const expect = require('chai').expect;
+const models = require('../../../server/models');
+const request = require('supertest-as-promised');
+const mongoose = require('mongoose');
+const exec = require('child_process').exec;
+const bodyParser = require('body-parser');
+const importRouter = require('../../../server/import');
 
 var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(models);
+app.use(models.router);
+app.use(importRouter);
 
-mongoose.connect('mongodb://localhost/alice-api-test', function (err) {
+var con = mongoose.connect('mongodb://localhost/alice-api-test', function (err) {
     if (err) {
         console.error(err);
         throw err;
     }
+});
+
+mongoose.connection.on('open', function () {
+    con.connection.db.dropDatabase();
 
     // create a fake students collection
     child = exec("mongoimport students.json --drop --host=0.0.0.0 -c students --jsonArray -d alice-api-test", {
@@ -39,6 +45,7 @@ describe('Students', function () {
         .then(function (res) {
         });
     });
+
     it('should add a student', function () {
         return request(app)
         .post('/api/v1/students')
@@ -49,5 +56,13 @@ describe('Students', function () {
             expect(res.body.firstName).to.equal('Donald');
             expect(res.body.lastName).to.equal('Duck');
         });
+    });
+
+    it('should import a student CSV text', function () {
+        return request(app)
+        .post('/api/v1/import/students')
+        .set('Content-Type', 'text/csv')
+        .send('Guillaume;Denry;1ere Agri\nVincent;Denry;Terminale Horti')
+        .expect(200);
     });
 });

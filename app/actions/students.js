@@ -14,6 +14,9 @@ export const STUDENT_EDITION_MODAL_SHOW = 'STUDENT_EDITION_MODAL_SHOW';
 export const STUDENT_EDITION_MODAL_CLOSE = 'STUDENT_EDITION_MODAL_CLOSE';
 export const STUDENT_CSV_MODAL_SHOW = 'STUDENT_CSV_MODAL_SHOW';
 export const STUDENT_CSV_MODAL_CLOSE = 'STUDENT_CSV_MODAL_CLOSE';
+export const IMPORT_STUDENTS_REQUEST = 'IMPORT_STUDENTS_REQUEST';
+export const IMPORT_STUDENTS_RESPONSE = 'IMPORT_STUDENTS_RESPONSE';
+export const IMPORT_STUDENTS_ERROR = 'IMPORT_STUDENTS_ERROR';
 
 function requestStudents() {
     return {
@@ -137,5 +140,46 @@ export function studentCSVModalShow() {
 export function studentCSVModalClose() {
     return {
         type: STUDENT_CSV_MODAL_CLOSE
+    };
+}
+
+function importStudentsRequest() {
+    return {
+        type: IMPORT_STUDENTS_REQUEST
+    };
+}
+
+function importStudentsResponse(toInsert) {
+    return {
+        type: IMPORT_STUDENTS_RESPONSE,
+        toInsert
+    };
+}
+
+function importStudentsError(err) {
+    return {
+        type: IMPORT_STUDENTS_ERROR,
+        error: err
+    };
+}
+
+export function importStudents(csv) {
+    return dispatch => {
+        dispatch(importStudentsRequest());
+        return new Promise(function (resolve, reject) {
+            request
+            .post('/api/v1/import/students')
+            .set('Content-Type', 'text/csv')
+            .send(csv)
+            .end((err, res) => {
+                if (err) {
+                    dispatch(importStudentsError(err));
+                    reject(err);
+                    return;
+                }
+                dispatch(importStudentsResponse(res.body));
+                resolve();
+            });
+        });
     };
 }
