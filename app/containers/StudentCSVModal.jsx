@@ -19,17 +19,19 @@ let modal = React.createClass({
     },
     applyHandler() {
         const dispatch = this.props.dispatch;
+        let files;
+        let that = this;
 
         this.setState({
             saving: true
         });
 
-        dispatch(importStudents(this.refs.csv.getValue(), this.state.formation))
+        dispatch(importStudents(this.refs.csv.getValue(), that.props.csvModalFormation))
         .then(() => {
             dispatch(studentCSVModalClose());
         })
         .finally(() => {
-            this.setState({
+            that.setState({
                 saving: false
             });
         });
@@ -47,6 +49,21 @@ let modal = React.createClass({
     },
     fillArea() {
         this.refs.csv.getInputDOMNode().value = 'Guillaume;Denry;Terminal Agri\nVincent;Denry;1ere Horti\nBenoit;Denry;Terminal Agri\n'
+    },
+    onFileUploadChange() {
+        const that = this;
+        const files = this.refs.fileUpload.getInputDOMNode().files;
+        if (files.length > 0) {
+            let reader = new FileReader();
+            let file = files[0];
+
+            reader.onload = function(upload) {
+                let csv;
+                csv = atob(upload.target.result.split(',')[1]);
+                that.refs.csv.getInputDOMNode().value = csv;
+            }
+            reader.readAsDataURL(file);
+        }
     },
     render() {
         const textAreaStyle = {
@@ -73,6 +90,13 @@ let modal = React.createClass({
                             labelClassName='col-xs-2' wrapperClassName='col-xs-10'
                             help='firstname;lastname'/>
                         <Input
+                            type='file'
+                            label='Or upload one'
+                            labelClassName='col-xs-2' wrapperClassName='col-xs-10'
+                            ref='fileUpload'
+                            onChange={this.onFileUploadChange}
+                            />
+                        <Input
                             type='text'
                             ref='formation'
                             value={this.props.csvModalFormation}
@@ -87,8 +111,8 @@ let modal = React.createClass({
                 <Modal.Footer>
                     <Loader loaded={!this.state.saving}>
                     </Loader>
-                    <Button bsStyle='default' onClick={this.fillArea}>Fill area with dummy data</Button>
-                    <Button bsStyle='primary' onClick={this.applyHandler}>Create</Button>
+                    <Button bsStyle='default' className='pull-left' onClick={this.fillArea}>Fill area with dummy data</Button>
+                    <Button bsStyle='primary' onClick={this.applyHandler}>Import</Button>
                     <Button bsStyle='danger' onClick={this.cancelHandler}>Cancel</Button>
                 </Modal.Footer>
             </Modal>
