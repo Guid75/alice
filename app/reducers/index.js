@@ -197,7 +197,8 @@ let reducers = {
         STUDENT_EDITION_MODAL_SHOW: (domain, action) => domain.set('displayEditionModal', true),
         STUDENT_EDITION_MODAL_CLOSE: (domain, action) => domain.set('displayEditionModal', false),
         STUDENT_CSV_MODAL_SHOW: (domain, action) => domain.set('displayCSVModal', true),
-        STUDENT_CSV_MODAL_CLOSE: (domain, action) => domain.set('displayCSVModal', false)
+        STUDENT_CSV_MODAL_CLOSE: (domain, action) => domain.set('displayCSVModal', false),
+        IMPORT_STUDENTS_CHANGE_FORMATION: (domain, action) => domain.set('csvModalFormation', action.title)
     },
     formations: {
         REQUEST_FORMATIONS: (domain, action) => domain.merge({ isFetching: true }),

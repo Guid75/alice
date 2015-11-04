@@ -93,17 +93,29 @@ function BSONArrayToJSONArray(bsonArray) {
 	});
 }
 
-function importStudentsFromCsvParsedArray(arr) {
-	const formationTitles = [];
+function importStudentsFromCsvParsedArray(arr, formation) {
+	let formationTitles;
 	let upsertedFormationsIds;
 	let insertedStudentsIds;
 	let allNeededFormations;
-	// get all formations to "upsert"
+
+	// do not touch the argument
+	arr = JSON.parse(JSON.stringify(arr));
+
+	// if the formation is not specified, set it to the formation argument
 	arr.forEach((row) => {
-		if (row.length >= 3) {
-			formationTitles.push(row[2]);
+		if (row.length === 2 && formation) {
+			row.push(formation);
 		}
 	});
+
+	// get all formations to "upsert"
+	formationTitles = arr.reduce((titles, row) => {
+		if (row.length >= 3) {
+			titles.push(row[2]);
+		}
+		return titles;
+	}, []);
 
 	return importFormationsFromCsvParsedArray(formationTitles)
 	.then(bulkResult => {

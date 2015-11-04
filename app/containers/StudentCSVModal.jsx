@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Modal, Button, Input, DropdownButton, MenuItem } from 'react-bootstrap';
 import { List } from 'immutable';
 import Loader from 'react-loader';
-import { studentCSVModalClose, importStudents } from '../actions/students';
+import { studentCSVModalClose, importStudents, importStudentsChangeFormation } from '../actions/students';
 
 require('promise.prototype.finally');
 
@@ -14,7 +14,6 @@ let modal = React.createClass({
         return {
             firstName: '',
             lastName: '',
-            formation: '',
             saving: false
         };
     },
@@ -25,7 +24,7 @@ let modal = React.createClass({
             saving: true
         });
 
-        dispatch(importStudents(this.refs.csv.getValue()))
+        dispatch(importStudents(this.refs.csv.getValue(), this.state.formation))
         .then(() => {
             dispatch(studentCSVModalClose());
         })
@@ -38,6 +37,14 @@ let modal = React.createClass({
     cancelHandler() {
         this.props.dispatch(studentCSVModalClose());
     },
+    formationSelected(e, id) {
+        const formation = this.props.formations.find(formation => formation.get('id') === id);
+        this.props.dispatch(importStudentsChangeFormation(formation.get('title')));
+    },
+    formationChangeHandler(e) {
+        console.log('change handler');
+        this.props.dispatch(importStudentsChangeFormation(e.target.value));
+    },
     fillArea() {
         this.refs.csv.getInputDOMNode().value = 'Guillaume;Denry;Terminal Agri\nVincent;Denry;1ere Horti\nBenoit;Denry;Terminal Agri\n'
     },
@@ -45,6 +52,11 @@ let modal = React.createClass({
         const textAreaStyle = {
             height: '15em'
         };
+        const dropDownButton = (
+            <DropdownButton id="input-dropdown-addon" title="">
+                {this.props.formations.map(formation => <MenuItem eventKey={formation.get('id')} key={formation.get('id')} onSelect={this.formationSelected}>{formation.get('title')}</MenuItem>)}
+            </DropdownButton>
+        );
         return (
             <Modal show={this.props.displayCSVModal} onHide={this.cancelHandler}>
                 <Modal.Header closeButton>
@@ -52,7 +64,24 @@ let modal = React.createClass({
                 </Modal.Header>
                 <Modal.Body>
                     <form className='form-horizontal'>
-                        <Input type='textarea' style={textAreaStyle} ref='csv' autoFocus label='Copy your CSV here' labelClassName="col-xs-2" wrapperClassName="col-xs-10" help='firstname;lastname;formation'/>
+                        <Input
+                            type='textarea'
+                            style={textAreaStyle}
+                            ref='csv'
+                            autoFocus
+                            label='Copy your CSV here'
+                            labelClassName='col-xs-2' wrapperClassName='col-xs-10'
+                            help='firstname;lastname'/>
+                        <Input
+                            type='text'
+                            ref='formation'
+                            value={this.props.csvModalFormation}
+                            onChange={this.formationChangeHandler}
+                            label='Formation'
+                            labelClassName="col-xs-2" wrapperClassName="col-xs-10"
+                            buttonAfter={dropDownButton}
+                            help={!this.props.csvModalFormation || this.props.formations.find(formation => formation.get('title') === this.props.csvModalFormation) ? undefined : "This formation is new and will be created"}
+                            />
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
@@ -70,6 +99,7 @@ let modal = React.createClass({
 function mapStateToProps(state) {
     return {
         displayCSVModal: state.getIn(['students', 'displayCSVModal'], false),
+        csvModalFormation: state.getIn(['students', 'csvModalFormation'], ''),
         formations: state.getIn(['formations', 'items'], List())
     };
 }

@@ -17,6 +17,7 @@ export const STUDENT_CSV_MODAL_CLOSE = 'STUDENT_CSV_MODAL_CLOSE';
 export const IMPORT_STUDENTS_REQUEST = 'IMPORT_STUDENTS_REQUEST';
 export const IMPORT_STUDENTS_RESPONSE = 'IMPORT_STUDENTS_RESPONSE';
 export const IMPORT_STUDENTS_ERROR = 'IMPORT_STUDENTS_ERROR';
+export const IMPORT_STUDENTS_CHANGE_FORMATION = 'IMPORT_STUDENTS_CHANGE_FORMATION';
 
 function requestStudents() {
     return {
@@ -163,12 +164,22 @@ function importStudentsError(err) {
     };
 }
 
-export function importStudents(csv) {
+export function importStudentsChangeFormation(newFormationTitle) {
+    return {
+        type: IMPORT_STUDENTS_CHANGE_FORMATION,
+        title: newFormationTitle
+    };
+}
+
+export function importStudents(csv, formationTitle) {
     return dispatch => {
         dispatch(importStudentsRequest());
         return new Promise(function (resolve, reject) {
             request
             .post('/api/v1/import/students')
+            .query(formationTitle ? {
+                formation: formationTitle
+            } : undefined)
             .set('Content-Type', 'text/csv')
             .send(csv)
             .end((err, res) => {

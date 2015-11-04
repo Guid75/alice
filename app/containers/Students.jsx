@@ -59,7 +59,7 @@ class Students extends React.Component {
                         <input type="text" className="form-control" placeholder="Search" value={this.props.filter} onChange={this.studentFilterChangeHandler.bind(this)}/>
                     </div>
                     <SplitButton bsStyle='primary' title='Create a student' onClick={this.createUserHandler.bind(this)} >
-                        <MenuItem eventKey="csv" onSelect={this.selectAction.bind(this)}>Import students from a CSV</MenuItem>
+                        <MenuItem eventKey="csv" onSelect={this.selectAction.bind(this)}>Import students</MenuItem>
                     </SplitButton>
                     {/*<Button bsStyle='primary' onClick={this.createUserHandler.bind(this)}>Create a student</Button>*/}
                     <div className="container" style={{ paddingLeft: 0, paddingTop: 8 }}>
@@ -67,6 +67,7 @@ class Students extends React.Component {
                             {this.props.formations.filter(this.formationFilter.bind(this)).map(formation => <Formation
                                 key={formation.get('id')}
                                 formation={formation}
+                                dispatch={this.props.dispatch}
                                 students={this.props.students}
                                 studentFilter={this.createStudentsFilter(formation)}
                                 filter={this.props.filter}

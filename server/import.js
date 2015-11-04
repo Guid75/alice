@@ -10,7 +10,7 @@ router.use(expressCsv({}, {
 }));
 
 router.post('/api/v1/import/students', (req, res) => {
-    models.importStudentsFromCsvParsedArray(req.body)
+    models.importStudentsFromCsvParsedArray(req.body, req.query.formation)
     .then((data) => {
         res.send(data);
     }, (err) => {

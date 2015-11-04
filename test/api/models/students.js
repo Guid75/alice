@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const expect = require('chai').expect;
 const models = require('../../../server/models');
@@ -61,8 +63,17 @@ describe('Students', function () {
     it('should import a student CSV text', function () {
         return request(app)
         .post('/api/v1/import/students')
+        .query({
+            formation: 'Acteurs'
+        })
         .set('Content-Type', 'text/csv')
-        .send('Guillaume;Denry;1ere Agri\nVincent;Denry;Terminale Horti')
-        .expect(200);
+        .send('Guillaume;Denry;1ere Agri\nVincent;Denry;Terminale Horti\nBenoit;Denry')
+        .expect(200)
+        .then((res) => {
+            let result = res.body;
+            // just a very simple check
+            expect(result.formations.length).to.equal(3);
+            expect(result.students.length).to.equal(3);
+        });
     });
 });
