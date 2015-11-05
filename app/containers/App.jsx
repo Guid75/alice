@@ -12,6 +12,7 @@ import { Modal, Button, Input } from 'react-bootstrap';
 import Students from './Students.jsx';
 import Teachers from './Teachers.jsx';
 import Timeslots from './Timeslots.jsx';
+import Workshops from './Workshops.jsx';
 import TeacherEditionModal from './TeacherEditionModal.jsx';
 import StudentEditionModal from './StudentEditionModal.jsx';
 import StudentCSVModal from './StudentCSVModal.jsx';
@@ -36,6 +37,9 @@ var App = React.createClass({
             case 'teachers':
             mainContain = <Teachers />;
             break;
+            case 'workshops':
+            mainContain = <Workshops />;
+            break;
             case 'timeslots':
             mainContain = <Timeslots />;
             break;
@@ -47,11 +51,14 @@ var App = React.createClass({
         return (
             <div>
                 <AppHeader />
-                <MainTabBar currentTab={this.props.currentTab} handleTabSelect={this.handleTabSelect}/>
-                {mainContain}
+                <div>
+                    <MainTabBar currentTab={this.props.currentTab} handleTabSelect={this.handleTabSelect}/>
+                    {mainContain}
+                </div>
                 <TeacherEditionModal/>
                 <StudentEditionModal/>
                 <StudentCSVModal/>
+
             </div>
         );
     }

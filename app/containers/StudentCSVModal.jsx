@@ -113,7 +113,7 @@ let modal = React.createClass({
                     </Loader>
                     <Button bsStyle='default' className='pull-left' onClick={this.fillArea}>Fill area with dummy data</Button>
                     <Button bsStyle='primary' onClick={this.applyHandler}>Import</Button>
-                    <Button bsStyle='danger' onClick={this.cancelHandler}>Cancel</Button>
+                    <Button bsStyle='default' onClick={this.cancelHandler}>Cancel</Button>
                 </Modal.Footer>
             </Modal>
         );

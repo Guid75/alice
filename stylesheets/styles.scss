@@ -6,3 +6,10 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
   vertical-align: top;
   margin-right: 1em;
 }
+
+.formation-panel:hover {
+    -moz-box-shadow: 3px 3px 3px 0px #c0c0c0;
+    -webkit-box-shadow: 3px 3px 3px 0px #c0c0c0;
+    -o-box-shadow: 3px 3px 3px 0px #c0c0c0;
+    box-shadow: 3px 3px 3px 0px #c0c0c0;
+}
