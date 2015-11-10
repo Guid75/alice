@@ -58,7 +58,6 @@ var App = React.createClass({
                 <TeacherEditionModal/>
                 <StudentEditionModal/>
                 <StudentCSVModal/>
-
             </div>
         );
     }

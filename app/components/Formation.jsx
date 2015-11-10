@@ -1,5 +1,7 @@
 'use strict';
 
+import styles from './Formation.css';
+
 import React from 'react';
 import { SplitButton, MenuItem, Button, Glyphicon, Panel } from 'react-bootstrap';
 import { studentCSVModalShow, importStudentsChangeFormation } from '../actions/students';
@@ -44,11 +46,8 @@ export default class Formation extends React.Component {
             </SplitButton> : undefined}</div>;
     }
     render() {
-        const panelStyle = {
-                width: 300
-        };
         return (
-            <Panel header={this.renderHeader.call(this)} onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)} className='formation-panel' style={panelStyle}>
+            <Panel header={this.renderHeader.call(this)} onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)} className={styles.mainPanel}>
                 {this.props.students.filter(this.studentFormationFilter.bind(this)).map((student) => {
                     return <Student key={student.get('id')} student={student} grayed={!this.props.studentFilter(student)} removeHandler={this.props.removeStudentHandler}/>
                 })}

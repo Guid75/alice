@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { SplitButton, MenuItem, Input, Panel, Button, Glyphicon } from 'react-bootstrap';
+import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import Formation from '../components/Formation.jsx';
 import { fetchStudents, filterStudents, removeStudent,
     studentEditionModalShow, studentCSVModalShow } from '../actions/students';
@@ -15,8 +15,12 @@ class Workshops extends React.Component {
     }
     render() {
         return (
-            <div>
-                Display workshops here
+            <div className='container-fluid' style={{ marginTop: '8'}}>
+                <ListGroup style={{ width: 200, height: 800 }}>
+                    <ListGroupItem href='#'>05/11/2015, 10:45-11:45</ListGroupItem>
+                    <ListGroupItem href='#'>05/11/2015, 11:45-12:45</ListGroupItem>
+                    <ListGroupItem href='#'>12/11/2015, 11:45-12:45</ListGroupItem>
+                </ListGroup>
             </div>
         );
     }
