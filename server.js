@@ -14,7 +14,7 @@ const app = express();
 
 var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? 8080 : 3001;
-var publicPath = path.resolve(__dirname, 'public');
+var publicPath = path.resolve(__dirname, 'dist');
 
 var login = process.env.ALICE_DB_LOGIN;
 var password = process.env.ALICE_DB_PASSWORD;
@@ -22,7 +22,7 @@ var db_url = process.env.ALICE_DB_URL;
 var db_noauth = process.env.ALICE_DB_NOAUTH;
 var complete_url; // with authentication
 
-app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/dist/favicon.ico'));
 app.use(express.static(publicPath));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

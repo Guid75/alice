@@ -9,8 +9,8 @@ import rootReducer from '../reducers';
 const logger = createLogger();
 
 const createStoreWithMiddleware = applyMiddleware(
-    thunk,
-    logger
+    thunk/*,
+    logger*/
 )(createStore);
 
 export default function configureStore() {
