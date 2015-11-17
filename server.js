@@ -21,6 +21,20 @@ var db_url = process.env.ALICE_DB_URL;
 var db_noauth = process.env.ALICE_DB_NOAUTH;
 var complete_url; // with authentication
 
+// webpack dev middlewares
+if (!isProduction) {
+    // TODO move all the following instruction of the block to a specific dev file
+    var webpack = require('webpack');
+    var config = require('./webpack.config');
+    var compiler = webpack(config);
+    app.use(require('webpack-dev-middleware')(compiler, {
+      noInfo: true,
+      publicPath: config.output.publicPath
+    }));
+
+    app.use(require('webpack-hot-middleware')(compiler));
+}
+
 app.use(express.static(publicPath));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -40,19 +54,6 @@ mongoose.connect(format(complete_url), (err) => {
         console.error(err);
     }
 });
-
-if (!isProduction) {
-    // TODO move all the following instruction of the block to a specific dev file
-    var webpack = require('webpack');
-    var config = require('./webpack.config');
-    var compiler = webpack(config);
-    app.use(require('webpack-dev-middleware')(compiler, {
-      noInfo: true,
-      publicPath: config.output.publicPath
-    }));
-
-    app.use(require('webpack-hot-middleware')(compiler));
-}
 
 app.listen(process.env.PORT || port, (err) => {
   if (err) {
