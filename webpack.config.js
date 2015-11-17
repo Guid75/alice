@@ -22,7 +22,8 @@ var config = {
         new HtmlWebpackPlugin({
             template: 'app/index.tpl.html',
             inject: 'body',
-            filename: 'index.html'
+            filename: 'index.html',
+            favicon: path.resolve(__dirname, 'app', 'favicon.ico')
         }),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin()

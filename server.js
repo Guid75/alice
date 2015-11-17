@@ -2,7 +2,6 @@ const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const express = require('express');
 const path = require('path');
-const favicon = require('serve-favicon');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const format = require('util').format;
@@ -22,7 +21,6 @@ var db_url = process.env.ALICE_DB_URL;
 var db_noauth = process.env.ALICE_DB_NOAUTH;
 var complete_url; // with authentication
 
-app.use(favicon(__dirname + '/dist/favicon.ico'));
 app.use(express.static(publicPath));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
