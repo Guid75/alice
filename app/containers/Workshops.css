@@ -1,0 +1,55 @@
+/* Layout */
+.main {
+  display: flex; /* cree un contexte flex pour ses enfants */
+  flex-direction: column; /* affichage vertical */
+  height: 100%;
+/*  min-height: 100vh; /* toute la hauteur du viewport (compatible IE9+) */
+}
+
+.wrapper {
+  display: block; /* IE fix */
+  flex: 1 1 auto; /* occupe la hauteur restante */
+  display: flex; /* cree un contexte flex pour ses enfants */
+  flex-direction: row; /* affichage horizontal */
+}
+
+.nav {
+  width: 15em;
+}
+
+.content {
+  display: block; /* IE fix */
+  flex: 1; /* occupe la largeur restante */
+}
+
+/* Decoration */
+
+.header, .nav, .section, .footer {
+	padding: 10px;
+	margin: 0;
+	border: 2px solid #fff;
+	border-radius: 10px;
+	color: #fff;
+}
+
+.header {
+	background: dodgerblue;
+    text-align: center;
+}
+.nav {
+	background: orange;
+}
+.nav a {
+  display: block;
+  padding: .5em 1em;
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,.3);
+}
+.section {
+	background: hotpink;
+}
+.footer {
+	background: olivedrab;
+  text-align: center;
+}
