@@ -41,6 +41,17 @@ let reducers = {
         ADD_FORMATION_RESPONSE: (domain, action) => domain.merge({ items: domain.get('items').push(fromJS(action.formation))}),
         REMOVE_FORMATION_RESPONSE: (domain, action) => domain.merge({ items: domain.get('items').delete(domain.get('items').findIndex(item => item.get('id') === action.id))})
     },
+    workshops: {
+        REQUEST_WORKSHOPS: (domain, action) => domain.merge({ isFetching: true }),
+        RECEIVE_WORKSHOPS: (domain, action) => domain.merge({
+            isFetching: false,
+            items: fromJS(action.workshops)
+        }),
+        ADD_WORKSHOP_RESPONSE: (domain, action) => domain.merge({ items: domain.get('items').push(fromJS(action.workshop))}),
+        REMOVE_WORKSHOP_RESPONSE: (domain, action) => domain.merge({ items: domain.get('items').delete(domain.get('items').findIndex(item => item.get('id') === action.id))}),
+        WORKSHOP_EDITION_MODAL_SHOW: (domain, action) => domain.set('displayEditionModal', true),
+        WORKSHOP_EDITION_MODAL_CLOSE: (domain, action) => domain.set('displayEditionModal', false)
+    },
     SELECT_TAB: (domain, action) => domain.set('currentTab', action.tab),
     IMPORT_STUDENTS_RESPONSE: (domain, action) => {
         var d = domain.merge({

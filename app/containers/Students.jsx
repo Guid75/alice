@@ -1,11 +1,11 @@
 'use strict';
 
 import React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { SplitButton, MenuItem, Input, Panel, Button, Glyphicon } from 'react-bootstrap';
 import Formation from '../components/Formation.jsx';
-import { fetchStudents, filterStudents, removeStudent,
-    studentEditionModalShow, studentCSVModalShow } from '../actions/students';
+import * as studentActionCreators from '../actions/students';
 import { removeFormation } from '../actions/formations';
 import { List } from 'immutable';
 
@@ -14,16 +14,7 @@ class Students extends React.Component {
         super(props);
     }
     studentFilterChangeHandler(event) {
-        this.props.dispatch(filterStudents(event.target.value));
-    }
-    removeUserHandler(id) {
-        this.props.dispatch(removeStudent(id));
-    }
-    removeFormationHandler(id) {
-        this.props.dispatch(removeFormation(id));
-    }
-    createUserHandler() {
-        this.props.dispatch(studentEditionModalShow());
+        this.props.studentActions.filterStudents(event.target.value);
     }
     createStudentsFilter(formation) {
         return student => {
@@ -34,17 +25,13 @@ class Students extends React.Component {
                 (student.get('firstName') + ' ' + student.get('lastName')).toUpperCase().indexOf(filter) >= 0);
         };
     }
-    formationFilter(formation) {
-        return true;
-//        return this.props.students.filter(this.createStudentsFilter(formation)).size > 0;
-    }
     selectAction(event, action) {
         switch (action) {
             case 'csv':
-            this.props.dispatch(studentCSVModalShow());
-            break;
+                this.props.studentActions.studentCSVModalShow();
+                break;
             default:
-            break;
+                break;
         }
     }
     render() {
@@ -54,25 +41,26 @@ class Students extends React.Component {
         };
         return (
             <div>
-                <form className="navbar-form navbar-left" role="search">
+                <form className='navbar-form navbar-left' role='search'>
                     <div className='form-group'>
-                        <input type="text" className="form-control" placeholder="Search" value={this.props.filter} onChange={this.studentFilterChangeHandler.bind(this)}/>
+                        <input type='text' className='form-control' placeholder='Search' value={this.props.filter} onChange={this.studentFilterChangeHandler.bind(this)}/>
                     </div>
-                    <SplitButton bsStyle='primary' title='Create a student' onClick={this.createUserHandler.bind(this)} >
-                        <MenuItem eventKey="csv" onSelect={this.selectAction.bind(this)}>Import students</MenuItem>
+                    <SplitButton bsStyle='primary' title='Create a student' onClick={this.props.studentActions.studentEditionModalShow} >
+                        <MenuItem eventKey='csv' onSelect={this.selectAction.bind(this)}>Import students</MenuItem>
                     </SplitButton>
-                    {/*<Button bsStyle='primary' onClick={this.createUserHandler.bind(this)}>Create a student</Button>*/}
-                    <div className="container" style={{ paddingLeft: 0, paddingTop: 8 }}>
+                    <div className='container' style={{ paddingLeft: 0, paddingTop: 8 }}>
                         <div className='students-formations-container'>
-                            {this.props.formations.filter(this.formationFilter.bind(this)).map(formation => <Formation
+                            {this.props.formations.map(formation => <Formation
                                 key={formation.get('id')}
+                                studentActions={this.props.studentActions}
                                 formation={formation}
-                                dispatch={this.props.dispatch}
                                 students={this.props.students}
                                 studentFilter={this.createStudentsFilter(formation)}
                                 filter={this.props.filter}
-                                removeStudentHandler={this.removeUserHandler.bind(this)}
-                                removeFormationHandler={this.removeFormationHandler.bind(this)}
+/*                                importStudentsChangeFormation={this.props.importStudentsChangeFormation}
+                                removeStudentHandler={this.props.removeStudent}
+                             studentCSVModalShow={this.props.studentCSVModalShow}*/
+                                removeFormationHandler={this.props.removeFormation}
                                 /> )}
                         </div>
                     </div>
@@ -91,4 +79,12 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Students);
+function mapDispatchToProps(dispatch) {
+    return {
+        studentActions: bindActionCreators(studentActionCreators, dispatch),
+        removeFormation: bindActionCreators(removeFormation, dispatch)
+    }
+//    return bindActionCreators(studentActionCreators, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Students);

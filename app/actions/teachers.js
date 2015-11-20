@@ -111,7 +111,7 @@ export function removeTeacher(id) {
         .end((err, res) => {
             dispatch(removeTeacherResponse(id));
         });
-    }
+    };
 }
 
 export function teacherEditionModalShow() {

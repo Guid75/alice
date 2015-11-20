@@ -28,14 +28,14 @@ export default class Formation extends React.Component {
     selectAction(event, action) {
         switch (action) {
             case 'remove':
-            this.props.removeFormationHandler(this.props.formation.get('id'));
-            break;
+                this.props.removeFormationHandler(this.props.formation.get('id'));
+                break;
             case 'import':
-            this.props.dispatch(importStudentsChangeFormation(this.props.formation.get('title')));
-            this.props.dispatch(studentCSVModalShow());
-            break;
+                this.props.studentsAction.importStudentsChangeFormation(this.props.formation.get('title'));
+                this.props.studentsAction.studentCSVModalShow();
+                break;
             default:
-            break;
+                break;
         }
     }
     renderHeader() {
@@ -49,7 +49,7 @@ export default class Formation extends React.Component {
         return (
             <Panel header={this.renderHeader.call(this)} onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)} className={styles.mainPanel}>
                 {this.props.students.filter(this.studentFormationFilter.bind(this)).map((student) => {
-                    return <Student key={student.get('id')} student={student} grayed={!this.props.studentFilter(student)} removeHandler={this.props.removeStudentHandler}/>
+                    return <Student key={student.get('id')} student={student} grayed={!this.props.studentFilter(student)} removeHandler={this.props.studentActions.removeStudent}/>
                 })}
             </Panel>
         );
@@ -59,6 +59,7 @@ export default class Formation extends React.Component {
 Formation.propTypes = {
     formation: React.PropTypes.object.isRequired,
     students: React.PropTypes.object.isRequired,
+    studentActions: React.PropTypes.object.isRequired,
     studentFilter: React.PropTypes.func.isRequired,
     removeFormationHandler: React.PropTypes.func.isRequired
 };

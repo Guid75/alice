@@ -30,6 +30,10 @@ export default function configureStore() {
             items: [],
             filter: ''
         },
+        workshops: {
+            isFetching: false,
+            items: []
+        },
         currentTab: 'students'
     });
 

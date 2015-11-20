@@ -35,11 +35,11 @@ var config = {
             include: path.join(__dirname, 'app'),
             exclude: nodeModulesDir
         }, {
-            test: /\.css?$/,
-            loader: 'style!css?modules&localIdentName=[name]---[local]---[hash:base64:5]'
-        }, {
             test: /\.scss$/,
             loader: "style!css!sass?outputStyle=expanded&includePaths[]=" + nodeModulesDir + "/bootstrap-sass/assets/stylesheets/"
+        }, {
+            test: /\.css?$/,
+            loader: 'style!css?modules&localIdentName=[name]---[local]---[hash:base64:5]'
         }, {
             test: /\.(png|woff|woff2|eot|ttf|svg)$/,
             loader: 'url-loader?limit=100000'

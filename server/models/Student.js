@@ -11,7 +11,7 @@ module.exports = {
 		lastName: {
 			type: String
 		},
-		formation : {
+		formation: {
 			type: Schema.Types.ObjectId,
 		//	type: String,
 			ref: 'Formation'

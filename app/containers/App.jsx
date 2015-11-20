@@ -6,6 +6,7 @@ import { selectTab } from '../actions';
 import { fetchStudents } from '../actions/students';
 import { fetchTeachers } from '../actions/teachers';
 import { fetchFormations } from '../actions/formations';
+import { fetchWorkshops } from '../actions/workshops';
 import { List, Map, fromJS } from 'immutable';
 import { Modal, Button, Input } from 'react-bootstrap';
 
@@ -16,6 +17,7 @@ import Workshops from './Workshops.jsx';
 import TeacherEditionModal from './TeacherEditionModal.jsx';
 import StudentEditionModal from './StudentEditionModal.jsx';
 import StudentCSVModal from './StudentCSVModal.jsx';
+import WorkshopEditionModal from './WorkshopEditionModal.jsx';
 import AppHeader from '../components/AppHeader.jsx';
 import MainTabBar from '../components/MainTabBar.jsx';
 
@@ -24,6 +26,7 @@ var App = React.createClass({
         this.props.dispatch(fetchStudents());
         this.props.dispatch(fetchTeachers());
         this.props.dispatch(fetchFormations());
+        this.props.dispatch(fetchWorkshops());
     },
     handleTabSelect(key) {
         this.props.dispatch(selectTab(key));
@@ -58,6 +61,7 @@ var App = React.createClass({
                 <TeacherEditionModal/>
                 <StudentEditionModal/>
                 <StudentCSVModal/>
+                <WorkshopEditionModal/>
             </div>
         );
     }
