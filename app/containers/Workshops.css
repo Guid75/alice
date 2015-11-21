@@ -7,9 +7,10 @@
 
 .wrapper {
     display: block; /* IE fix */
-    flex: 1 1 1px; /* occupe la hauteur restante */
+    flex: 1 1 auto; /* occupe la hauteur restante */
     display: flex; /* cree un contexte flex pour ses enfants */
     flex-direction: row; /* affichage horizontal */
+    height: 0px;
 }
 
 .nav {
