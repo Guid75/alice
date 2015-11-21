@@ -39,13 +39,38 @@ class Workshops extends React.Component {
                 </div>
 
                 <div className={styles.wrapper}>
-                    <div className={styles.nav} id="navigation" role="navigation">
+                    <nav className={styles.nav} id="navigation" role="navigation">
                         <a href="#">Salade</a>
                         <a href="#">Tomate</a>
                         <a href="#">Oignon</a>
                         <a href="#">Choucroute</a>
                         <a href="#">Picon biere</a>
-                    </div>
+                        <a href="#">Salade</a>
+                        <a href="#">Tomate</a>
+                        <a href="#">Oignon</a>
+                        <a href="#">Choucroute</a>
+                        <a href="#">Picon biere</a>
+                        <a href="#">Salade</a>
+                        <a href="#">Tomate</a>
+                        <a href="#">Oignon</a>
+                        <a href="#">Choucroute</a>
+                        <a href="#">Picon biere</a>
+                        <a href="#">Salade</a>
+                        <a href="#">Tomate</a>
+                        <a href="#">Oignon</a>
+                        <a href="#">Choucroute</a>
+                        <a href="#">Picon biere</a>
+                        <a href="#">Salade</a>
+                        <a href="#">Tomate</a>
+                        <a href="#">Oignon</a>
+                        <a href="#">Choucroute</a>
+                        <a href="#">Picon biere</a>
+                        <a href="#">Salade</a>
+                        <a href="#">Tomate</a>
+                        <a href="#">Oignon</a>
+                        <a href="#">Choucroute</a>
+                        <a href="#">Picon biere</a>
+                    </nav>
                     <div className={styles.section + ' ' + styles.content}>
                         <h2>Flexbox c'est la vie, Hopla !</h2>
                         <p><code>flex: 1;</code></p>

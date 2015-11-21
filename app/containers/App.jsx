@@ -21,6 +21,8 @@ import WorkshopEditionModal from './WorkshopEditionModal.jsx';
 import AppHeader from '../components/AppHeader.jsx';
 import MainTabBar from '../components/MainTabBar.jsx';
 
+import styles from './App.css';
+
 var App = React.createClass({
     componentDidMount() {
         this.props.dispatch(fetchStudents());
@@ -52,12 +54,11 @@ var App = React.createClass({
         }
 
         return (
-            <div>
-                <AppHeader />
-                <div>
+            <div className={styles.main}>
                     <MainTabBar currentTab={this.props.currentTab} handleTabSelect={this.handleTabSelect}/>
-                    {mainContain}
-                </div>
+                    <div className={styles.content}>
+                        {mainContain}
+                    </div>
                 <TeacherEditionModal/>
                 <StudentEditionModal/>
                 <StudentCSVModal/>
