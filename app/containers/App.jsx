@@ -23,6 +23,10 @@ import MainTabBar from '../components/MainTabBar.jsx';
 
 import styles from './App.css';
 
+let injectTapEventPlugin = require("react-tap-event-plugin");
+
+injectTapEventPlugin();
+
 var App = React.createClass({
     componentDidMount() {
         this.props.dispatch(fetchStudents());
