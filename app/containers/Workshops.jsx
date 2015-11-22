@@ -35,46 +35,14 @@ class Workshops extends React.Component {
         return (
             <div className={styles.main}>
                 <div className={styles.header}>
-                    <h1>I do love my Knacky balls !</h1>
+                    <Button bsStyle='primary' onClick={this.createWorkshopHandler.bind(this)}><Glyphicon glyph="plus"/> New workshop</Button>
                 </div>
 
                 <div className={styles.wrapper}>
                     <nav className={styles.nav} id="navigation" role="navigation">
-                        <a href="#">Salade</a>
-                        <a href="#">Tomate</a>
-                        <a href="#">Oignon</a>
-                        <a href="#">Choucroute</a>
-                        <a href="#">Picon biere</a>
-                        <a href="#">Salade</a>
-                        <a href="#">Tomate</a>
-                        <a href="#">Oignon</a>
-                        <a href="#">Choucroute</a>
-                        <a href="#">Picon biere</a>
-                        <a href="#">Salade</a>
-                        <a href="#">Tomate</a>
-                        <a href="#">Oignon</a>
-                        <a href="#">Choucroute</a>
-                        <a href="#">Picon biere</a>
-                        <a href="#">Salade</a>
-                        <a href="#">Tomate</a>
-                        <a href="#">Oignon</a>
-                        <a href="#">Choucroute</a>
-                        <a href="#">Picon biere</a>
-                        <a href="#">Salade</a>
-                        <a href="#">Tomate</a>
-                        <a href="#">Oignon</a>
-                        <a href="#">Choucroute</a>
-                        <a href="#">Picon biere</a>
-                        <a href="#">Salade</a>
-                        <a href="#">Tomate</a>
-                        <a href="#">Oignon</a>
-                        <a href="#">Choucroute</a>
-                        <a href="#">Picon biere</a>
+                        {this.props.workshops.map(workshop => <a href="#">{workshop.get('title')}</a>)}
                     </nav>
                     <div className={styles.section + ' ' + styles.content}>
-                        <h2>Flexbox c'est la vie, Hopla !</h2>
-                        <p><code>flex: 1;</code></p>
-                        <p>Lorem Elsass ipsum lacus leverwurscht Wurschtsalad mamsell Gal. gewurztraminer turpis, suspendisse commodo Oberschaeffolsheim ornare aliquam semper Miss Dahlias Mauris turpis sagittis kuglopf eleifend dignissim baeckeoffe geht's Richard Schirmeck mollis habitant schnaps ante et sit leo schpeck sit Salu bissame Salut bisamme varius quam. amet elementum nullam bissame bredele Heineken picon biere gal sed risus, condimentum Verdammi ch'ai ac rechime meteor barapli s'guelt quam, non Christkindelsmarik blottkopf, Carola tellus rucksack vielmols, Gal !</p>
                     </div>
                 </div>
 

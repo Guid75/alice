@@ -29,28 +29,35 @@
 	padding: 10px;
 	margin: 0;
 	border: 2px solid #fff;
-	border-radius: 10px;
+	border-radius: 5px;
 	color: #fff;
 }
 
 .header {
-	background: dodgerblue;
-    text-align: center;
+	/* background: dodgerblue; */
+    /* text-align: center; */
 }
+
 .nav {
-    background: orange;
+    background: rgb(230, 230, 230)
+    /* background: orange; */
 }
 .nav a {
     display: block;
     padding: .5em 1em;
-    color: #fff;
+    /* color: #fff; */
     text-decoration: none;
-    border-bottom: 1px solid rgba(255,255,255,.3);
+    border-bottom: 1px solid rgba(150,150,150,.3);
+}
+.nav a:hover {
+    background-color: rgb(240, 240, 240);
 }
 .section {
-    background: hotpink;
+    background: rgb(200, 200, 200);
+    color: black;
 }
 .footer {
-    background: olivedrab;
+    background: rgb(200, 200, 200);
     text-align: center;
+    color: black;
 }
