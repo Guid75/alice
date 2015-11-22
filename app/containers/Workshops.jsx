@@ -32,6 +32,8 @@ class Workshops extends React.Component {
     //     );
     // }
     render() {
+        let workshopLinks = this.props.workshops.map(workshop => <a href="#">{workshop.get('title')}</a>);
+        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
         return (
             <div className={styles.main}>
                 <div className={styles.header}>
@@ -40,7 +42,7 @@ class Workshops extends React.Component {
 
                 <div className={styles.wrapper}>
                     <nav className={styles.nav} id="navigation" role="navigation">
-                        {this.props.workshops.map(workshop => <a href="#">{workshop.get('title')}</a>)}
+                        {workshopLinks}
                     </nav>
                     <div className={styles.section + ' ' + styles.content}>
                     </div>
