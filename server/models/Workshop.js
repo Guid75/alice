@@ -10,7 +10,13 @@ module.exports = {
 		teacher: {
 			type: Schema.Types.ObjectId,
 			ref: 'Teacher'
-		}
+		},
+        timeslots: [
+            {
+                first: Date,
+                last: Date
+            }
+        ]
 	},
 	options: {
 		lean: false

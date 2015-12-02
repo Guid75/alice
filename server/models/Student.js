@@ -13,7 +13,6 @@ module.exports = {
 		},
 		formation: {
 			type: Schema.Types.ObjectId,
-		//	type: String,
 			ref: 'Formation'
 		}
 	},

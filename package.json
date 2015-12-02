@@ -26,6 +26,8 @@
     "promise.prototype.finally": "^1.0.1",
     "react": "^0.14.0",
     "react-bootstrap": "^0.27.1",
+    "react-bootstrap-datetimepicker": "0.0.22",
+    "react-datepicker": "^0.15.2",
     "react-dom": "^0.14.0",
     "react-loader": "^2.0.0",
     "react-redux": "^4.0.0",

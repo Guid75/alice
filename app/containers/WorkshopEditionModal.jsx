@@ -6,6 +6,7 @@ import { Modal, Button, Input, DropdownButton, MenuItem } from 'react-bootstrap'
 import { List } from 'immutable';
 import Loader from 'react-loader';
 import { workshopEditionModalClose, addWorkshop } from '../actions/workshops';
+import DateTimeField from 'react-bootstrap-datetimepicker';
 
 require('promise.prototype.finally');
 
@@ -75,6 +76,12 @@ let modal = React.createClass({
                     <form className='form-horizontal'>
                         <Input type='text' ref='title' autoFocus label='Title' labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
                         <Input type='text' ref='teacher' value={this.state.teacher} onChange={this.teacherChangeHandler} label='Teacher' labelClassName="col-xs-3" wrapperClassName="col-xs-9" buttonAfter={dropDownButton}/>
+                        <div className='form-group'>
+                            <label className='control-label col-xs-3'>Date</label>
+                            <div className='col-xs-3'><DateTimeField/></div>
+                            <div className='col-xs-3'><DateTimeField mode="time"/></div>
+                            <div className='col-xs-3'><DateTimeField mode="time"/></div>
+                        </div>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>

@@ -17,22 +17,25 @@ class Workshops extends React.Component {
     createWorkshopHandler() {
         this.props.dispatch(workshopEditionModalShow());
     }
-    // render() {
-    //     return (
-    //         <div>
-    //             <Row style={{ margin: 8 }}>
-    //                 <Button bsStyle='primary' onClick={this.createWorkshopHandler.bind(this)}><Glyphicon glyph="plus"/> New workshop</Button>
-    //             </Row>
-    //             <div className='container-fluid' style={{ marginTop: '8'}}>
-    //                 <ListGroup style={{ width: 200, height: 800 }}>
-    //                     {this.props.workshops.map(workshop => <ListGroupItem href="#">{workshop.get('title')}</ListGroupItem>)}
-    //                 </ListGroup>
-    //             </div>
-    //         </div>
-    //     );
-    // }
     render() {
         let workshopLinks = this.props.workshops.map(workshop => <a href="#">{workshop.get('title')}</a>);
+        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
+        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
+        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
+        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
+        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
+        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
+        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
+        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
+        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
+        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
+        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
+        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
+        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
+        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
+        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
+        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
+        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
         workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
         return (
             <div className={styles.main}>
@@ -47,8 +50,6 @@ class Workshops extends React.Component {
                     <div className={styles.section + ' ' + styles.content}>
                     </div>
                 </div>
-
-                <div className={styles.footer} >Hopla le pied de pache !</div>
             </div>
         );
     }
