@@ -31,12 +31,13 @@ export class WorkshopMenuItem extends Component {
             <div className={styles.main} onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
                 <span style={spanStyle}>{this.props.workshop.get('title')}</span>
             {this.state.hover ?
-                <Button bsStyle='danger' bsSize='xsmall' style={buttonStyle}><Glyphicon glyph="remove" /></Button> : null}
+                <Button bsStyle='default' bsSize='xsmall' style={buttonStyle} onClick={this.props.removeHandler.bind(null, this.props.workshop.get('id'))}><Glyphicon glyph="remove" /></Button> : null}
             </div>
         );
     }
 };
 
 WorkshopMenuItem.propTypes = {
-    workshop: React.PropTypes.object.isRequired
+    workshop: React.PropTypes.object.isRequired,
+    removeHandler: React.PropTypes.func.isRequired
 };

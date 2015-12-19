@@ -31,8 +31,8 @@ export default class Formation extends React.Component {
                 this.props.removeFormationHandler(this.props.formation.get('id'));
                 break;
             case 'import':
-                this.props.studentsAction.importStudentsChangeFormation(this.props.formation.get('title'));
-                this.props.studentsAction.studentCSVModalShow();
+                this.props.studentActions.importStudentsChangeFormation(this.props.formation.get('title'));
+                this.props.studentActions.studentCSVModalShow();
                 break;
             default:
                 break;

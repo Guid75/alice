@@ -96,6 +96,7 @@ function removeWorkshopResponse(id) {
 };
 
 export function removeWorkshop(id) {
+    console.log('remove', id);
     return dispatch => {
         dispatch(removeWorkshopRequest(id));
         request

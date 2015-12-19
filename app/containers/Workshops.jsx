@@ -2,13 +2,13 @@
 
 // externals
 import React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { ListGroup, ListGroupItem, Button, Row, Glyphicon } from 'react-bootstrap';
 import { List } from 'immutable';
 
 // actions
-import { workshopEditionModalShow } from '../actions/workshops';
-import { removeFormation } from '../actions/formations';
+import * as workshopActionCreators from '../actions/workshops';
 
 // components
 import Formation from '../components/Formation.jsx';
@@ -21,7 +21,7 @@ class Workshops extends React.Component {
         super(props);
     }
     createWorkshopHandler() {
-        this.props.dispatch(workshopEditionModalShow());
+        this.props.workshopActions.workshopEditionModalShow();
     }
     render() {
         return (
@@ -32,7 +32,7 @@ class Workshops extends React.Component {
 
                 <div className={styles.wrapper}>
                     <nav className={styles.nav} id="navigation" role="navigation">
-                        {this.props.workshops.map(workshop => <WorkshopMenuItem workshop={workshop}/>)}
+                        {this.props.workshops.map(workshop => <WorkshopMenuItem key={workshop.get('id')} workshop={workshop} removeHandler={this.props.workshopActions.removeWorkshop} />)}
                     </nav>
                     <div className={styles.section + ' ' + styles.content}>
                     </div>
@@ -50,4 +50,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Workshops);
+function mapDispatchToProps(dispatch) {
+    return {
+        workshopActions: bindActionCreators(workshopActionCreators, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Workshops);
