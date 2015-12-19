@@ -1,12 +1,18 @@
 'use strict';
 
+// externals
 import React from 'react';
 import { connect } from 'react-redux';
 import { ListGroup, ListGroupItem, Button, Row, Glyphicon } from 'react-bootstrap';
-import Formation from '../components/Formation.jsx';
+import { List } from 'immutable';
+
+// actions
 import { workshopEditionModalShow } from '../actions/workshops';
 import { removeFormation } from '../actions/formations';
-import { List } from 'immutable';
+
+// components
+import Formation from '../components/Formation.jsx';
+import { WorkshopMenuItem } from '../components/WorkshopMenuItem.jsx';
 
 import styles from './Workshops.css';
 
@@ -18,7 +24,6 @@ class Workshops extends React.Component {
         this.props.dispatch(workshopEditionModalShow());
     }
     render() {
-        const workshopLinks = this.props.workshops.map(workshop => <span>{workshop.get('title')}</span>);
         return (
             <div className={styles.main}>
                 <div className={styles.header}>
@@ -27,7 +32,7 @@ class Workshops extends React.Component {
 
                 <div className={styles.wrapper}>
                     <nav className={styles.nav} id="navigation" role="navigation">
-                        {workshopLinks}
+                        {this.props.workshops.map(workshop => <WorkshopMenuItem workshop={workshop}/>)}
                     </nav>
                     <div className={styles.section + ' ' + styles.content}>
                     </div>
