@@ -47,15 +47,17 @@
     background: rgb(230, 230, 230)
     /* background: orange; */
 }
-.nav a {
+.nav span {
     display: block;
     padding: .5em 1em;
-    /* color: #fff; */
+    color: #444;
     text-decoration: none;
+    cursor: pointer;
     border-bottom: 1px solid rgba(150,150,150,.3);
 }
-.nav a:hover {
+.nav span:hover {
     background-color: rgb(240, 240, 240);
+    font-weight: bold;
 }
 .section {
     background: rgb(200, 200, 200);

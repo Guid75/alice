@@ -18,25 +18,7 @@ class Workshops extends React.Component {
         this.props.dispatch(workshopEditionModalShow());
     }
     render() {
-        let workshopLinks = this.props.workshops.map(workshop => <a href="#">{workshop.get('title')}</a>);
-        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
-        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
-        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
-        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
-        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
-        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
-        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
-        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
-        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
-        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
-        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
-        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
-        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
-        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
-        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
-        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
-        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
-        workshopLinks = workshopLinks.push(<a href="#">12/13/2015 (<b>4</b>)</a>);
+        const workshopLinks = this.props.workshops.map(workshop => <span>{workshop.get('title')}</span>);
         return (
             <div className={styles.main}>
                 <div className={styles.header}>
